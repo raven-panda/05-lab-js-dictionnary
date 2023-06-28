@@ -17,6 +17,7 @@ const config = {
     entry: './src/index.js',
     output: {
         filename: 'index.js',
+        clean: true,
         path: path.resolve(__dirname, 'app'),
     },
     devServer: {
@@ -34,7 +35,7 @@ const config = {
             inject: true,
             meta: {
                 viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-                description: "C'est la famille !",
+                description: "Project",
             },
             template: './src/index.html',
             filename: '../app/index.html',
@@ -79,12 +80,8 @@ const config = {
                 use: [stylesHandler, 'css-loader', 'sass-loader'],
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif)$/i,
                 type: 'asset',
-            },
-            {
-                test: /\.(jpe?g|png|gif)$/i,
-                type: "asset/resource",
                 generator: {
                     filename: 'assets/[name][ext]',
                 },

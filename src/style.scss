@@ -1,0 +1,18 @@
+$background: linear-gradient(190deg, rgb(145, 107, 207) 0%, rgb(237, 118, 151) 72.40%, rgb(255, 159, 118) 100%);
+$primaryColor: #FDF7FF;
+
+:root {
+    font-size: 100%;
+}
+body {
+    min-height: 100vh;
+    background-image: $background;
+}
+#container {
+    display: flex;
+    justify-content: center;
+}
+#component {
+    color: $primaryColor;
+    width: 64.25rem;
+}
