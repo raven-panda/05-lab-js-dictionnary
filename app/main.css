@@ -1,21 +1,78 @@
-/*!*********************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/style.scss ***!
-  \*********************************************************************************************************/
+/*!*****************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./src/style.scss ***!
+  \*****************************************************************************************************************************************************************/
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3.125rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 :root {
   font-size: 100%;
 }
 
 body {
+  margin: 0;
   min-height: 100vh;
-  background-image: linear-gradient(190deg, rgb(145, 107, 207) 0%, rgb(237, 118, 151) 72.4%, rgb(255, 159, 118) 100%);
+  background: left/cover no-repeat url(2d593c23918537990947.webp);
 }
 
 #container {
   display: flex;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeInAnimation ease 0.5s;
   justify-content: center;
+  align-items: center;
 }
 
-#component {
-  color: #FDF7FF;
-  width: 64.25rem;
+#app {
+  display: grid;
+  grid: auto 5fr 2fr/auto;
+  padding-bottom: 200px;
+  text-align: center;
+}
+#app h1 {
+  font: 700 100% "Commissioner", sans-serif;
+  font-size: 4.5rem;
+  opacity: 0;
+  color: rgb(255, 255, 230);
+  margin: 0;
+  animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
+}
+#app p {
+  font: 400 100% "Commissioner", sans-serif;
+  font-size: 2rem;
+  opacity: 0;
+  margin: 3% 0 10% 0;
+  font-weight: 400;
+  color: #fff;
+  animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+}
+#app form {
+  display: grid;
+}
+#app form input {
+  font: 400 100% "Commissioner", sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0 15%;
+  padding: 0 3%;
+  background: none;
+  border: solid 2px rgb(255, 255, 230);
+  border-radius: 15px;
+  opacity: 0;
+  animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
 }

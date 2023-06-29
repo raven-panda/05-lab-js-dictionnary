@@ -77,7 +77,21 @@ const config = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [stylesHandler, 'css-loader', 'sass-loader'],
+                use: [
+                    stylesHandler,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    }
+                ],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif)$/i,

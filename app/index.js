@@ -16,7 +16,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n\n\n// Formulaire\nfunction constructAPIEndpoint(word, language) {\n  var version = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'v2';\n  return \"https://api.dictionaryapi.dev/api/\".concat(version, \"/entries/\").concat(language, \"/\").concat(word);\n}\nvar form = document.querySelector('#app form');\nform.addEventListener(\"submit\", function (e) {\n  e.preventDefault();\n  var word = document.querySelector('input').value,\n    language = 'en';\n  return window.location.assign(constructAPIEndpoint(word, language));\n});\n\n//# sourceURL=webpack://my-webpack-project/./src/index.js?");
 
 /***/ }),
 

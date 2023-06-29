@@ -1,18 +1,90 @@
-$background: linear-gradient(190deg, rgb(145, 107, 207) 0%, rgb(237, 118, 151) 72.40%, rgb(255, 159, 118) 100%);
-$primaryColor: #FDF7FF;
+// Variables
+$background: left / cover no-repeat  url(assets/background.webp);
+$textColor1: rgb(255, 255, 230);
+$textColor2: #fff;
 
+// Fonctions
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-3.125rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@mixin font700 {
+    font: 700 100% 'Commissioner', sans-serif;
+}
+@mixin font400 {
+    font: 400 100% 'Commissioner', sans-serif;
+}
+
+// Corps de la page
 :root {
-    font-size: 100%;
+font-size: 100%;
 }
 body {
+    margin: 0;
     min-height: 100vh;
-    background-image: $background;
+    background: $background;
 }
 #container {
     display: flex;
+    height: 100vh;
+    background: rgb(0, 0, 0, 0.5) ;
+    animation: fadeInAnimation ease 0.5s;
     justify-content: center;
+    align-items: center;
 }
-#component {
-    color: $primaryColor;
-    width: 64.25rem;
+
+// App
+#app {
+    display: grid;
+    grid: auto 5fr 2fr/ auto;
+    padding-bottom: 200px;
+    text-align: center;
+    h1 {
+        @include font700;
+        font-size: 4.5rem;
+        opacity: 0;
+        color: $textColor1;
+        margin: 0;
+        animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
+    }
+    p {
+        @include font400;
+        font-size: 2rem;
+        opacity: 0;
+        margin: 3% 0 10% 0;
+        font-weight: 400;
+        color: $textColor2;
+        animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+    }
+    form {
+        display: grid;
+        input {
+            @include font400;
+            font-size: 1.5rem;
+            color: $textColor2;
+            margin: 0 15%;
+            padding: 0 3%;
+            background: none;
+            border: solid 2px $textColor1;
+            border-radius: 15px;
+            opacity: 0;
+            animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+        }
+    }
 }
+
+
