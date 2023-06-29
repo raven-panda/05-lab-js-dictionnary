@@ -14,9 +14,12 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 
 const config = {
-    entry: './src/index.js',
+    entry: {
+        index: './src/index.js',
+        definition: './src/definition.js',
+    },
     output: {
-        filename: 'index.js',
+        filename: '[name].js',
         clean: true,
         path: path.resolve(__dirname, 'app'),
     },
@@ -32,6 +35,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            chunks: ['index'],
             inject: true,
             meta: {
                 viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
@@ -40,9 +44,19 @@ const config = {
             template: './src/index.html',
             filename: '../app/index.html',
         }),
+        new HtmlWebpackPlugin({
+            chunks: ['definition'],
+            inject: true,
+            meta: {
+                viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+                description: "Project",
+            },
+            template: './src/definition.html',
+            filename: '../app/definition.html',
+        }),
 
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'style.css',
         }),
 
         // Add your plugins here

@@ -1,7 +1,11 @@
 // Variables
+$headerHeight: 50px;
+$headerBackground: rgb(0, 0, 0, 0.8);
+$containerBackground: rgb(0, 0, 0, 0.5);
 $background: left / cover no-repeat  url(assets/background.webp);
 $textColor1: rgb(255, 255, 230);
-$textColor2: #fff;
+$textColor2: rgb(255, 255, 255);
+$active: rgb(255, 255, 200);
 
 // Fonctions
 @keyframes fadeInAnimation {
@@ -38,53 +42,80 @@ body {
     min-height: 100vh;
     background: $background;
 }
-#container {
+header {
     display: flex;
-    height: 100vh;
-    background: rgb(0, 0, 0, 0.5) ;
-    animation: fadeInAnimation ease 0.5s;
-    justify-content: center;
     align-items: center;
-}
-
-// App
-#app {
-    display: grid;
-    grid: auto 5fr 2fr/ auto;
-    padding-bottom: 200px;
-    text-align: center;
-    h1 {
-        @include font700;
-        font-size: 4.5rem;
-        opacity: 0;
-        color: $textColor1;
-        margin: 0;
-        animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
-    }
+    height: $headerHeight;
+    background: $headerBackground;
+    color: $textColor1;
     p {
-        @include font400;
-        font-size: 2rem;
-        opacity: 0;
-        margin: 3% 0 10% 0;
-        font-weight: 400;
-        color: $textColor2;
-        animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+        margin: 0;
     }
-    form {
+}
+#page-home {
+    #container {
+        min-height: calc(100vh - $headerHeight);
+        display: flex;
+        flex-grow: auto;
+        flex-direction: column;
+        background: $containerBackground;
+        animation: fadeInAnimation ease 0.5s;
+        justify-content: center;
+        align-items: center;
+    }
+    // App
+    #app {
         display: grid;
-        input {
-            @include font400;
-            font-size: 1.5rem;
-            color: $textColor2;
-            margin: 0 15%;
-            padding: 0 3%;
-            background: none;
-            border: solid 2px $textColor1;
-            border-radius: 15px;
+        grid: auto 5fr 2fr/ auto;
+        padding-bottom: 6.25rem;
+        text-align: center;
+        h1 {
+            @include font700;
+            font-size: 4.5rem;
             opacity: 0;
-            animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+            color: $textColor1;
+            margin: 0;
+            animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
+        }
+        p {
+            @include font400;
+            font-size: 2rem;
+            opacity: 0;
+            margin: 3% 0 10% 0;
+            font-weight: 400;
+            color: $textColor2;
+            animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+        }
+        form {
+            display: grid;
+            input {
+                @include font400;
+                font-size: 1.5rem;
+                color: $textColor2;
+                margin: 0 15%;
+                padding: 0 3%;
+                background: none;
+                border: solid 2px $textColor1;
+                border-radius: 15px;
+                opacity: 0;
+                animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+                
+                &:focus-visible {
+                    border: solid 2px $active;
+                    outline: none;
+                }
+            }
         }
     }
 }
-
-
+#page-definition {
+    #container {
+        min-height: calc(100vh - $headerHeight);
+        display: flex;
+        flex-grow: auto;
+        flex-direction: column;
+        background: $containerBackground;
+        justify-content: center;
+        align-items: center;
+    }
+}

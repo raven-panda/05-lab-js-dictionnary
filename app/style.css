@@ -29,22 +29,34 @@ body {
   background: left/cover no-repeat url(2d593c23918537990947.webp);
 }
 
-#container {
+header {
   display: flex;
-  height: 100vh;
+  align-items: center;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.8);
+  color: rgb(255, 255, 230);
+}
+header p {
+  margin: 0;
+}
+
+#page-home #container {
+  min-height: calc(100vh - 50px);
+  display: flex;
+  flex-grow: auto;
+  flex-direction: column;
   background: rgba(0, 0, 0, 0.5);
   animation: fadeInAnimation ease 0.5s;
   justify-content: center;
   align-items: center;
 }
-
-#app {
+#page-home #app {
   display: grid;
   grid: auto 5fr 2fr/auto;
-  padding-bottom: 200px;
+  padding-bottom: 6.25rem;
   text-align: center;
 }
-#app h1 {
+#page-home #app h1 {
   font: 700 100% "Commissioner", sans-serif;
   font-size: 4.5rem;
   opacity: 0;
@@ -52,22 +64,22 @@ body {
   margin: 0;
   animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
 }
-#app p {
+#page-home #app p {
   font: 400 100% "Commissioner", sans-serif;
   font-size: 2rem;
   opacity: 0;
   margin: 3% 0 10% 0;
   font-weight: 400;
-  color: #fff;
+  color: rgb(255, 255, 255);
   animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
 }
-#app form {
+#page-home #app form {
   display: grid;
 }
-#app form input {
+#page-home #app form input {
   font: 400 100% "Commissioner", sans-serif;
   font-size: 1.5rem;
-  color: #fff;
+  color: rgb(255, 255, 255);
   margin: 0 15%;
   padding: 0 3%;
   background: none;
@@ -75,4 +87,18 @@ body {
   border-radius: 15px;
   opacity: 0;
   animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+}
+#page-home #app form input:focus-visible {
+  border: solid 2px rgb(255, 255, 200);
+  outline: none;
+}
+
+#page-definition #container {
+  min-height: calc(100vh - 50px);
+  display: flex;
+  flex-grow: auto;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }

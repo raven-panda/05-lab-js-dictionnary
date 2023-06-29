@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/definition.js":
+/*!***************************!*\
+  !*** ./src/definition.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n\n// Formulaire\nvar form = document.querySelector('#app form');\nvar title = document.querySelector('h1');\nvar audio = document.querySelector('#audio');\nfunction constructAPIEndpoint(word, language) {\n  var version = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'v2';\n  return \"https://api.dictionaryapi.dev/api/\".concat(version, \"/entries/\").concat(language, \"/\").concat(word);\n}\nform.addEventListener(\"submit\", function (e) {\n  e.preventDefault();\n  var word = document.querySelector('input').value,\n    language = 'en';\n  return window.open(constructAPIEndpoint(word, language), '_blank');\n});\n\n//# sourceURL=webpack://my-webpack-project/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n\nvar defTitle = document.querySelector('#def-title');\n\n// window.addEventListener('load', function(e) {\n//     \n// })\n\n//# sourceURL=webpack://my-webpack-project/./src/definition.js?");
 
 /***/ }),
 
@@ -73,7 +73,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/definition.js");
 /******/ 	
 /******/ })()
 ;
