@@ -20,11 +20,31 @@ $active: rgb(255, 255, 200);
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
-        transform: translateY(-3.125rem);
+        transform: translateY(-50px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+@keyframes fadeSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+}
+@keyframes timedFade {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 @mixin font700 {
@@ -38,34 +58,48 @@ $active: rgb(255, 255, 200);
 :root {
 font-size: 100%;
 }
+
 body {
     margin: 0;
     min-height: 100vh;
     background: $background;
-}
-header {
-    display: flex;
-    align-items: center;
-    height: $headerHeight;
-    background: $headerBackground;
-    color: $textColor1;
-    p {
-        margin: 0;
-    }
-}
-#page-home {
     header {
+        position: fixed;
+        z-index: 10;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        height: $headerHeight;
+        background: $headerBackground;
+        color: $textColor1;
+        justify-content: space-between;
+        padding: 0 0.9375rem;
+        box-sizing: border-box;
         svg {
             display: block;
         }
-        justify-content: space-between;
-        padding: 0 0.9375rem;
+        a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: $textColor1;
+            p {
+                padding-left: 0.625rem;
+                opacity: 0;
+                &.timed {
+                    animation: timedFade 1s ease-in-out forwards 0.4s;
+                }
+            }
+        }
         p {
+            margin: 0;
             @include font400;
         }
-    } 
+    }
     #container {
-        min-height: calc(100vh - $headerHeight);
+        min-height: 100vh;
+        padding-top: $headerHeight;
+        box-sizing: border-box;
         display: flex;
         flex-grow: auto;
         flex-direction: column;
@@ -77,9 +111,14 @@ header {
     // App
     #app {
         display: grid;
-        grid: auto 5fr 70px / auto;
+        grid: auto 5fr 4.375rem / auto;
         padding-bottom: 6.25rem;
         text-align: center;
+        &.submitted {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
         h1 {
             @include font700;
             font-size: 4.5rem;
@@ -88,7 +127,7 @@ header {
             margin: 0;
             animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
         }
-        p {
+        #desc {
             @include font400;
             font-size: 2rem;
             opacity: 0;
@@ -110,24 +149,39 @@ header {
                 border-radius: 15px;
                 opacity: 0;
                 animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
-                
                 &:focus-visible {
                     border: solid 2px $active;
                     outline: none;
                 }
             }
-            ::placeholder {
+            input::placeholder {
                 color: $textPlaceholder;
             }
         }
         #response {
-            div > h3, div > h2, div li{
-                color: $textColor1;
+            div {
+                h3, h2 {
+                    color: $textColor1;
+                    @include font700;
+                    font-size: 1.5rem;
+                    text-transform: uppercase;
+                }
+                p {
+                    color: $textColor1;
+                    @include font400;
+                    font-size: 1rem;
+                    list-style: none;
+                }
             }
         }
     }
 }
-
+#page-home #app h1.submitted, #page-home #app #desc.submitted, #page-home #app form.submitted {
+    animation: fadeSlideOut 1s ease-in-out forwards;
+}
+.invisible, #page-home #app form.invisible {
+    display: none;
+}
 
 @media screen and (max-width: 1300px), screen and (max-height: 731px){
     #page-home {
@@ -136,7 +190,7 @@ header {
             h1 {
                 font-size: 2.625rem;
             }
-            p {
+            #desc {
                 font-size: 1.375rem;
                 margin: 1.5625rem 0 6.25rem 0;
                 align-self: center;
@@ -158,7 +212,7 @@ header {
             h1 {
                 font-size: 2.3125rem;
             }
-            p {
+            #desc {
                 font-size: 1.375rem;
                 margin: 1.5625rem 0 6.25rem 0;
                 align-self: center;
@@ -180,7 +234,7 @@ header {
             h1 {
                 font-size: 2.625rem;
             }
-            p {
+            #desc {
                 font-size: 22px;
                 margin: 25px 0 100px 0;
                 align-self: center;

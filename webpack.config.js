@@ -15,7 +15,6 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 const config = {
     entry: {
         index: './src/index.js',
-        definition: './src/definition.js',
     },
     output: {
         filename: '[name].js',
@@ -43,16 +42,16 @@ const config = {
             template: './src/index.html',
             filename: '../app/index.html',
         }),
-        new HtmlWebpackPlugin({
-            chunks: ['definition'],
-            inject: true,
-            meta: {
-                viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-                description: "Project",
-            },
-            template: './src/definition.html',
-            filename: '../app/definition.html',
-        }),
+        // new HtmlWebpackPlugin({
+        //     chunks: ['definition'],
+        //     inject: true,
+        //     meta: {
+        //         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+        //         description: "Project",
+        //     },
+        //     template: './src/definition.html',
+        //     filename: '../app/definition.html',
+        // }),
         new MiniCssExtractPlugin({
             filename: 'style.css',
         }),

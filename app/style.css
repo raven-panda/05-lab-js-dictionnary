@@ -12,11 +12,31 @@
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-3.125rem);
+    transform: translateY(-50px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+@keyframes timedFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 :root {
@@ -28,30 +48,43 @@ body {
   min-height: 100vh;
   background: left/cover no-repeat url(assets/background.webp);
 }
-
-header {
+body header {
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
   display: flex;
   align-items: center;
   height: 50px;
   background: rgba(0, 0, 0, 0.8);
   color: rgb(255, 255, 230);
-}
-header p {
-  margin: 0;
-}
-
-#page-home header {
   justify-content: space-between;
   padding: 0 0.9375rem;
+  box-sizing: border-box;
 }
-#page-home header svg {
+body header svg {
   display: block;
 }
-#page-home header p {
+body header a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(255, 255, 230);
+}
+body header a p {
+  padding-left: 0.625rem;
+  opacity: 0;
+}
+body header a p.timed {
+  animation: timedFade 1s ease-in-out forwards 0.4s;
+}
+body header p {
+  margin: 0;
   font: 400 100% "Commissioner", sans-serif;
 }
-#page-home #container {
-  min-height: calc(100vh - 50px);
+body #container {
+  min-height: 100vh;
+  padding-top: 50px;
+  box-sizing: border-box;
   display: flex;
   flex-grow: auto;
   flex-direction: column;
@@ -60,13 +93,18 @@ header p {
   justify-content: center;
   align-items: center;
 }
-#page-home #app {
+body #app {
   display: grid;
-  grid: auto 5fr 70px/auto;
+  grid: auto 5fr 4.375rem/auto;
   padding-bottom: 6.25rem;
   text-align: center;
 }
-#page-home #app h1 {
+body #app.submitted {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+body #app h1 {
   font: 700 100% "Commissioner", sans-serif;
   font-size: 4.5rem;
   opacity: 0;
@@ -74,7 +112,7 @@ header p {
   margin: 0;
   animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
 }
-#page-home #app p {
+body #app #desc {
   font: 400 100% "Commissioner", sans-serif;
   font-size: 2rem;
   opacity: 0;
@@ -83,10 +121,10 @@ header p {
   color: rgb(255, 255, 255);
   animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
 }
-#page-home #app form {
+body #app form {
   display: grid;
 }
-#page-home #app form input {
+body #app form input {
   font: 400 100% "Commissioner", sans-serif;
   font-size: 1.5rem;
   color: rgb(255, 255, 255);
@@ -98,15 +136,32 @@ header p {
   opacity: 0;
   animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
 }
-#page-home #app form input:focus-visible {
+body #app form input:focus-visible {
   border: solid 2px rgb(255, 255, 200);
   outline: none;
 }
-#page-home #app form ::placeholder {
+body #app form input::placeholder {
   color: rgba(255, 255, 230, 0.6);
 }
-#page-home #app #response div > h3, #page-home #app #response div > h2, #page-home #app #response div li {
+body #app #response div h3, body #app #response div h2 {
   color: rgb(255, 255, 230);
+  font: 700 100% "Commissioner", sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+body #app #response div p {
+  color: rgb(255, 255, 230);
+  font: 400 100% "Commissioner", sans-serif;
+  font-size: 1rem;
+  list-style: none;
+}
+
+#page-home #app h1.submitted, #page-home #app #desc.submitted, #page-home #app form.submitted {
+  animation: fadeSlideOut 1s ease-in-out forwards;
+}
+
+.invisible, #page-home #app form.invisible {
+  display: none;
 }
 
 @media screen and (max-width: 1300px), screen and (max-height: 731px) {
@@ -116,7 +171,7 @@ header p {
   #page-home #app h1 {
     font-size: 2.625rem;
   }
-  #page-home #app p {
+  #page-home #app #desc {
     font-size: 1.375rem;
     margin: 1.5625rem 0 6.25rem 0;
     align-self: center;
@@ -134,7 +189,7 @@ header p {
   #page-home #app h1 {
     font-size: 2.3125rem;
   }
-  #page-home #app p {
+  #page-home #app #desc {
     font-size: 1.375rem;
     margin: 1.5625rem 0 6.25rem 0;
     align-self: center;
@@ -152,7 +207,7 @@ header p {
   #page-home #app h1 {
     font-size: 2.625rem;
   }
-  #page-home #app p {
+  #page-home #app #desc {
     font-size: 22px;
     margin: 25px 0 100px 0;
     align-self: center;
