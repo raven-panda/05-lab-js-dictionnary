@@ -26,7 +26,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: left/cover no-repeat url(2d593c23918537990947.webp);
+  background: left/cover no-repeat url(assets/background.webp);
 }
 
 header {
@@ -40,6 +40,16 @@ header p {
   margin: 0;
 }
 
+#page-home header {
+  justify-content: space-between;
+  padding: 0 0.9375rem;
+}
+#page-home header svg {
+  display: block;
+}
+#page-home header p {
+  font: 400 100% "Commissioner", sans-serif;
+}
 #page-home #container {
   min-height: calc(100vh - 50px);
   display: flex;
@@ -52,7 +62,7 @@ header p {
 }
 #page-home #app {
   display: grid;
-  grid: auto 5fr 2fr/auto;
+  grid: auto 5fr 70px/auto;
   padding-bottom: 6.25rem;
   text-align: center;
 }
@@ -81,7 +91,7 @@ header p {
   font-size: 1.5rem;
   color: rgb(255, 255, 255);
   margin: 0 15%;
-  padding: 0 3%;
+  padding: 0 25px;
   background: none;
   border: solid 2px rgb(255, 255, 230);
   border-radius: 15px;
@@ -92,13 +102,63 @@ header p {
   border: solid 2px rgb(255, 255, 200);
   outline: none;
 }
+#page-home #app form ::placeholder {
+  color: rgba(255, 255, 230, 0.6);
+}
+#page-home #app #response div > h3, #page-home #app #response div > h2, #page-home #app #response div li {
+  color: rgb(255, 255, 230);
+}
 
-#page-definition #container {
-  min-height: calc(100vh - 50px);
-  display: flex;
-  flex-grow: auto;
-  flex-direction: column;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
+@media screen and (max-width: 1300px), screen and (max-height: 731px) {
+  #page-home #app {
+    grid: auto 5fr 2fr/min(400px, 40vw);
+  }
+  #page-home #app h1 {
+    font-size: 2.625rem;
+  }
+  #page-home #app p {
+    font-size: 1.375rem;
+    margin: 1.5625rem 0 6.25rem 0;
+    align-self: center;
+  }
+  #page-home #app form input {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 900px), screen and (max-height: 506px) {
+  #page-home #app {
+    grid: auto 3fr 1fr/min(400px, 50vw);
+    padding: 0 1.5625rem;
+  }
+  #page-home #app h1 {
+    font-size: 2.3125rem;
+  }
+  #page-home #app p {
+    font-size: 1.375rem;
+    margin: 1.5625rem 0 6.25rem 0;
+    align-self: center;
+  }
+  #page-home #app form input {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 375px) {
+  #page-home #app {
+    grid: auto 3fr 1fr/auto;
+    padding: 0 1.5625rem;
+  }
+  #page-home #app h1 {
+    font-size: 2.625rem;
+  }
+  #page-home #app p {
+    font-size: 22px;
+    margin: 25px 0 100px 0;
+    align-self: center;
+  }
+  #page-home #app form input {
+    font-size: 1.125rem;
+    margin: 0;
+  }
 }

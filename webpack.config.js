@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
-
 const isProduction = process.env.NODE_ENV == 'production';
 
 
@@ -54,11 +53,9 @@ const config = {
             template: './src/definition.html',
             filename: '../app/definition.html',
         }),
-
         new MiniCssExtractPlugin({
             filename: 'style.css',
         }),
-
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -108,8 +105,8 @@ const config = {
                 ],
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif)$/i,
-                type: 'asset',
+                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif|webp)$/i,
+                type: 'asset/resource',
                 generator: {
                     filename: 'assets/[name][ext]',
                 },
@@ -136,7 +133,7 @@ const config = {
                     },
                 ],
             }),
-          ],
+        ],
     }
 };
 
