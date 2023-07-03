@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -117,6 +118,10 @@ const config = {
     },
     optimization: {
         minimizer: [
+            new TerserPlugin({
+                test: /\.js$/i,
+                exclude: /node_modules/,
+            }),
             new ImageMinimizerPlugin({
                 generator: [
                     {

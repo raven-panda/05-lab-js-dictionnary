@@ -1,7 +1,7 @@
 /*!*****************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./src/style.scss ***!
   \*****************************************************************************************************************************************************************/
-@keyframes fadeInAnimation {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -46,11 +46,14 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: left/cover no-repeat url(assets/background.webp);
+  background: left/cover no-repeat url(assets/background-bright.webp);
+}
+body.dark {
+  background-image: url(assets/background-dark.webp);
 }
 body header {
   position: fixed;
-  z-index: 10;
+  z-index: 1;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -60,6 +63,13 @@ body header {
   justify-content: space-between;
   padding: 0 0.9375rem;
   box-sizing: border-box;
+}
+body header #menu {
+  display: flex;
+  align-items: center;
+}
+body header #menu svg {
+  margin-left: 0.625rem;
 }
 body header svg {
   display: block;
@@ -88,14 +98,17 @@ body #container {
   display: flex;
   flex-grow: auto;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.5);
-  animation: fadeInAnimation ease 0.5s;
+  animation: fadeIn ease 0.5s;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+body #container.dark {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 body #app {
   display: grid;
-  grid: auto 5fr 4.375rem/auto;
+  grid: auto 5fr auto/auto;
   padding-bottom: 6.25rem;
   text-align: center;
 }
@@ -129,18 +142,18 @@ body #app form input {
   font-size: 1.5rem;
   color: rgb(255, 255, 255);
   margin: 0 15%;
-  padding: 0 25px;
+  padding: 15px 25px;
   background: none;
-  border: solid 2px rgb(255, 255, 230);
+  border: solid 3px rgb(255, 255, 230);
   border-radius: 15px;
   opacity: 0;
   animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
 }
 body #app form input:focus-visible {
-  border: solid 2px rgb(255, 255, 200);
+  border: solid 3px rgb(255, 255, 200);
   outline: none;
 }
-body #app form input::placeholder {
+body #app form ::placeholder {
   color: rgba(255, 255, 230, 0.6);
 }
 body #app #response div h3, body #app #response div h2 {
@@ -156,63 +169,68 @@ body #app #response div p {
   list-style: none;
 }
 
-#page-home #app h1.submitted, #page-home #app #desc.submitted, #page-home #app form.submitted {
+body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
   animation: fadeSlideOut 1s ease-in-out forwards;
 }
 
-.invisible, #page-home #app form.invisible {
+.invisible, body #app form.invisible {
   display: none;
 }
 
 @media screen and (max-width: 1300px), screen and (max-height: 731px) {
-  #page-home #app {
-    grid: auto 5fr 2fr/min(400px, 40vw);
+  body #app {
+    grid: auto auto auto/46.25rem;
   }
-  #page-home #app h1 {
-    font-size: 2.625rem;
+  body #app h1 {
+    font-size: 3.25rem;
   }
-  #page-home #app #desc {
-    font-size: 1.375rem;
+  body #app #desc {
+    font-size: 1.75rem;
     margin: 1.5625rem 0 6.25rem 0;
     align-self: center;
   }
-  #page-home #app form input {
+  body #app form input {
     font-size: 1.125rem;
-    margin: 0;
+    margin: 0 30px;
   }
 }
 @media screen and (max-width: 900px), screen and (max-height: 506px) {
-  #page-home #app {
-    grid: auto 3fr 1fr/min(400px, 50vw);
-    padding: 0 1.5625rem;
+  body header p {
+    font-size: 0.8125rem;
   }
-  #page-home #app h1 {
+  body #app {
+    grid: auto/60vw;
+    padding: 0;
+  }
+  body #app h1 {
     font-size: 2.3125rem;
   }
-  #page-home #app #desc {
+  body #app #desc {
     font-size: 1.375rem;
-    margin: 1.5625rem 0 6.25rem 0;
+    margin: 1.5625rem 0 3.125rem 0;
     align-self: center;
   }
-  #page-home #app form input {
+  body #app form input {
     font-size: 1.125rem;
     margin: 0;
   }
 }
-@media screen and (max-width: 375px) {
-  #page-home #app {
-    grid: auto 3fr 1fr/auto;
-    padding: 0 1.5625rem;
+@media screen and (max-width: 486px) {
+  body header p {
+    font-size: 9px;
   }
-  #page-home #app h1 {
-    font-size: 2.625rem;
+  body #app {
+    grid: auto auto auto/80vw;
   }
-  #page-home #app #desc {
-    font-size: 22px;
-    margin: 25px 0 100px 0;
+  body #app h1 {
+    font-size: 2.375rem;
+  }
+  body #app #desc {
+    font-size: 1.125rem;
+    margin: 25px 0 30px 0;
     align-self: center;
   }
-  #page-home #app form input {
+  body #app form input {
     font-size: 1.125rem;
     margin: 0;
   }

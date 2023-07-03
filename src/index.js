@@ -1,5 +1,9 @@
 import './style.scss';
 
+const title = document.querySelector('h1');
+const desc = document.querySelector('#desc');
+const app = document.querySelector('#app');
+
 function constructAPIEndpoint(word, language, version = 'v2') {
     return `https://api.dictionaryapi.dev/api/${version}/entries/${language}/${word}`;
 }
@@ -10,9 +14,9 @@ function getAPIResponse(word, language, version = 'v2') {
     fetch(endpoint)
         // Message d'erreur si il y en a une
         .then(response => {
-            if (!response.ok) {
-                alert('No result !');
-            } 
+            // if (!response.ok) {
+
+            // } 
             return response.json();
             })
         .then(data => {
@@ -71,9 +75,25 @@ function getAPIResponse(word, language, version = 'v2') {
             antonymsElement.innerHTML = antonymsHTML;
         })
     .catch(e => {
-        console.log('There was a problem with your fetch operation: ' + e.message);
+        title.classList.remove('submitted');
+        desc.classList.remove('submitted');
+        form.classList.remove('submitted');
+        title.classList.remove('invisible');
+        desc.classList.remove('invisible');
+        app.classList.remove('submitted');
+        form.classList.remove('invisible');
+        alert('Cannot find your word, please try again.')
     });
 }
+
+const switchMode = document.querySelector('#switch');
+const container = document.querySelector('#container')
+const body = document.querySelector('body');
+
+switchMode.addEventListener('click', function () {
+    container.classList.toggle('dark');
+    body.classList.toggle('dark');
+});
 
 const form = document.querySelector('#app form');
 form.addEventListener('submit', function (e) {
@@ -83,10 +103,6 @@ form.addEventListener('submit', function (e) {
     const word = document.querySelector('input').value;
     
     // Ajout des classes aux éléments qui doivent disparaître
-    const title = document.querySelector('h1');
-    const desc = document.querySelector('#desc');
-    const app = document.querySelector('#app');
-
     title.classList.add('submitted');
     desc.classList.add('submitted');
     form.classList.add('submitted');
