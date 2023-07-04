@@ -116,7 +116,7 @@ body #app h1 {
   opacity: 0;
   color: rgb(255, 255, 230);
   margin: 0;
-  animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
+  animation: fadeSlideIn 0.5s ease-in-out forwards 0s;
 }
 body #app #desc {
   font: 400 100% "Commissioner", sans-serif;
@@ -125,7 +125,7 @@ body #app #desc {
   margin: 3% 0 10% 0;
   font-weight: 400;
   color: rgb(255, 255, 255);
-  animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+  animation: fadeSlideIn 0.5s ease-in-out forwards 0.1s;
 }
 body #app form {
   display: grid;
@@ -140,7 +140,7 @@ body #app form input {
   border: solid 3px rgb(255, 255, 230);
   border-radius: 15px;
   opacity: 0;
-  animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+  animation: fadeSlideIn 0.5s ease-in-out forwards 0.2s;
 }
 body #app form input:focus-visible {
   border: solid 3px rgb(255, 255, 200);
@@ -151,6 +151,9 @@ body #app form ::placeholder {
 }
 body #app #response {
   background: rgba(0, 0, 0, 0.5);
+}
+body #app #response.active {
+  animation: fadeIn 0.3s ease-in-out forwards 0.1s;
   padding: 0 2rem 0 2rem;
 }
 body #app #response div h3, body #app #response div h2 {
@@ -168,7 +171,7 @@ body #app #response div p {
 }
 
 body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
-  animation: fadeSlideOut 0.5s ease-in-out forwards;
+  animation: fadeSlideOut 0.3s ease-in-out forwards;
 }
 
 .invisible, body #app form.invisible {
