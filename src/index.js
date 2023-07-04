@@ -33,20 +33,39 @@ function getAPIResponse(word, language, version = 'v2') {
             // Audio
             const audioData = data[0].phonetics.find(item => item.audio !== '');
             if (audioData) {
-                audioElement.innerHTML = `<audio controls src="${audioData.audio}"></audio>`;
+                audioElement.innerHTML = `<audio controls src=\"${audioData.audio}\"></audio>`;
             }
 
             // Définitions
             let definitionHTML = "";
             for (let meaning of data[0].meanings) {
-                definitionHTML += `<h3 class="meaning">${meaning.partOfSpeech}</h3>`;
+                definitionHTML += `<h3 class=\"meaning\">${meaning.partOfSpeech}</h3>`;
                 definitionHTML += "<div>";
-                for (let def of meaning.definitions) {
-                    definitionHTML += `<p>${def.definition}</p>`;
+                let defs = meaning.definitions;
+                let i = 0;
+                for (let def of defs) {
+                    // if (i <= 3) {
+                        definitionHTML += `<p class=\"definitions\">${def.definition}</p>`;
+                    // }
+                    // if (i == 2) {
+                    //     let more = defs.length - i;
+                    //     definitionHTML += `<p id=\"show-more\">Show ${more} more...</p>`;
+                    // };
+                    // if (i > 2) {
+                    //     definitionHTML += `<p class=\"definitions invisible\">${def.definition}</p>`
+                    // };
                 }
                 definitionHTML += "</div>";
             }
             definitionElement.innerHTML = definitionHTML;
+            // const showMoreP = document.querySelector('#show-more');
+            // showMoreP.addEventListener('click', function () {
+            //     let defPs = document.querySelectorAll('.invisible');
+            //     for (let defP of defPs) {
+            //         defP.classList.remove('invisible');
+            //     }
+            //     showMoreP.remove();
+            // })
 
             // Synonymes
             let synonymsHTML = `<h2>Synonymes</h2>`;
@@ -112,9 +131,9 @@ form.addEventListener('submit', function (e) {
         desc.classList.add('invisible');
         app.classList.add('submitted');
         form.classList.add('invisible');
-
         // Faire la requête à l'API
         getAPIResponse(word, 'en');
+        document.title = `${word} - Dictionary`;
     }, 1000)
 
     // Affichage temporisé du message 'Want to search for another definition ?'

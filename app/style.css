@@ -26,7 +26,7 @@
   }
   to {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px);
   }
 }
 @keyframes timedFade {
@@ -46,7 +46,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: left/cover no-repeat url(assets/background-bright.webp);
+  background: top/cover no-repeat url(assets/background-bright.webp);
 }
 body.dark {
   background-image: url(assets/background-dark.webp);
@@ -156,6 +156,9 @@ body #app form input:focus-visible {
 body #app form ::placeholder {
   color: rgba(255, 255, 230, 0.6);
 }
+body #app #response {
+  padding-bottom: 3.125rem;
+}
 body #app #response div h3, body #app #response div h2 {
   color: rgb(255, 255, 230);
   font: 700 100% "Commissioner", sans-serif;
@@ -165,12 +168,12 @@ body #app #response div h3, body #app #response div h2 {
 body #app #response div p {
   color: rgb(255, 255, 230);
   font: 400 100% "Commissioner", sans-serif;
-  font-size: 1rem;
+  font-size: 14px;
   list-style: none;
 }
 
 body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
-  animation: fadeSlideOut 1s ease-in-out forwards;
+  animation: fadeSlideOut 0.5s ease-in-out forwards;
 }
 
 .invisible, body #app form.invisible {

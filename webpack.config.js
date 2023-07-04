@@ -16,9 +16,10 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 const config = {
     entry: {
         index: './src/index.js',
+        // definition: './src/definition.js'
     },
     output: {
-        filename: '[name].js',
+        filename: '[name]-bundle.js',
         clean: true,
         path: path.resolve(__dirname, 'app'),
     },
@@ -29,7 +30,7 @@ const config = {
         port: 3000,
         static: {
             directory: path.join(__dirname, "app"),
-          },
+        },
         hot: false,
     },
     plugins: [
