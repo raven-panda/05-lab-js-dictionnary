@@ -46,10 +46,6 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: top/cover no-repeat url(assets/background-bright.webp);
-}
-body.dark {
-  background-image: url(assets/background-dark.webp);
 }
 body header {
   position: fixed;
@@ -75,10 +71,15 @@ body header svg {
   display: block;
 }
 body header a {
+  margin: 0;
+  font: 400 100% "Commissioner", sans-serif;
   display: flex;
   align-items: center;
   text-decoration: none;
   color: rgb(255, 255, 230);
+}
+body header a:hover {
+  text-decoration: underline;
 }
 body header a p {
   padding-left: 0.625rem;
@@ -86,10 +87,6 @@ body header a p {
 }
 body header a p.timed {
   animation: timedFade 1s ease-in-out forwards 0.4s;
-}
-body header p {
-  margin: 0;
-  font: 400 100% "Commissioner", sans-serif;
 }
 body #container {
   min-height: 100vh;
@@ -101,10 +98,6 @@ body #container {
   animation: fadeIn ease 0.5s;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-}
-body #container.dark {
-  background-color: rgba(0, 0, 0, 0.5);
 }
 body #app {
   display: grid;
@@ -157,19 +150,21 @@ body #app form ::placeholder {
   color: rgba(255, 255, 230, 0.6);
 }
 body #app #response {
-  padding-bottom: 3.125rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0 2rem 0 2rem;
 }
 body #app #response div h3, body #app #response div h2 {
   color: rgb(255, 255, 230);
   font: 700 100% "Commissioner", sans-serif;
   font-size: 1.5rem;
   text-transform: uppercase;
+  text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
 }
 body #app #response div p {
   color: rgb(255, 255, 230);
   font: 400 100% "Commissioner", sans-serif;
-  font-size: 14px;
-  list-style: none;
+  font-size: 0.875rem;
+  text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
 }
 
 body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
@@ -236,5 +231,33 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
   body #app form input {
     font-size: 1.125rem;
     margin: 0;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body.theme {
+    background: top/cover no-repeat url(assets/background-dark.webp);
+  }
+  #container.theme {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  body.theme-b {
+    background: top/cover no-repeat url(assets/background-light.webp);
+  }
+  #container.theme-b {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+@media (prefers-color-scheme: light) {
+  body.theme {
+    background: top/cover no-repeat url(assets/background-light.webp);
+  }
+  #container.theme {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  body.theme-b {
+    background: top/cover no-repeat url(assets/background-dark.webp);
+  }
+  #container.theme-b {
+    background: rgba(0, 0, 0, 0.5);
   }
 }

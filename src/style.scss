@@ -1,15 +1,25 @@
 // Variables
+$responseAnimation: fadeIn 0.3s ease-in-out forwards 0.1s;
+$titleAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0s;
+$descAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0.1s;
+$inputAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0.2s;
+$animationOut: fadeSlideOut 0.3s ease-in-out forwards;
+
 $headerHeightWatch: 10px;
 $headerHeight: 50px;
+
 $headerBackground: rgb(0, 0, 0, 0.8);
 $containerBackgroundDark: rgb(0, 0, 0, 0.5);
-$containerBackgroundBright: rgb(0, 0, 0, 0.3);
-$backgroundBright: url('assets/background-bright.webp');
-$backgroundDark: url('assets/background-dark.webp');
+$containerBackgroundLight: rgb(0, 0, 0, 0.3);
+$backgroundLight: top / cover no-repeat url('assets/background-light.webp');
+$backgroundDark: top / cover no-repeat url('assets/background-dark.webp');
+
 $textColor1: rgb(255, 255, 230);
 $textColor2: rgb(255, 255, 255);
 $textPlaceholder: rgb(255, 255, 230, 0.6);
 $active: rgb(255, 255, 200);
+$textShadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
+
 
 // Fonctions
 @keyframes fadeIn {
@@ -65,10 +75,6 @@ font-size: 100%;
 body {
     margin: 0;
     min-height: 100vh;
-    background: top / cover no-repeat url(assets/background-bright.webp);
-    &.dark {
-        background-image: $backgroundDark;
-    }
     header {
         position: fixed;
         z-index: 1;
@@ -92,10 +98,15 @@ body {
             display: block;
         }
         a {
+            margin: 0;
+            @include font400;
             display: flex;
             align-items: center;
             text-decoration: none;
             color: $textColor1;
+            &:hover {
+                text-decoration: underline;
+            }
             p {
                 padding-left: 0.625rem;
                 opacity: 0;
@@ -103,10 +114,6 @@ body {
                     animation: timedFade 1s ease-in-out forwards 0.4s;
                 }
             }
-        }
-        p {
-            margin: 0;
-            @include font400;
         }
     }
     #container {
@@ -119,10 +126,6 @@ body {
         animation: fadeIn ease 0.5s;
         justify-content: center;
         align-items: center;
-        background: $containerBackgroundBright;
-        &.dark {
-            background-color: $containerBackgroundDark;
-        }
     }
     // App
     #app {
@@ -141,7 +144,7 @@ body {
             opacity: 0;
             color: $textColor1;
             margin: 0;
-            animation: fadeSlideIn 1s ease-in-out forwards 0.4s;
+            animation: $titleAnimationIn;
         }
         #desc {
             @include font400;
@@ -150,7 +153,7 @@ body {
             margin: 3% 0 10% 0;
             font-weight: 400;
             color: $textColor2;
-            animation: fadeSlideIn 1s ease-in-out forwards 0.6s;
+            animation: $descAnimationIn;
         }
         form {
             display: grid;
@@ -164,7 +167,7 @@ body {
                 border: solid 3px $textColor1;
                 border-radius: 15px;
                 opacity: 0;
-                animation: fadeSlideIn 1s ease-in-out forwards 0.8s;
+                animation: $inputAnimationIn;
                 &:focus-visible {
                     border: solid 3px $active;
                     outline: none;
@@ -175,27 +178,31 @@ body {
             }
         }
         #response {
-            padding-bottom: 3.125rem;
+            background: rgb(0, 0, 0, 0.5);
+            &.active {
+                animation: $responseAnimation;
+                padding: 0 2rem 0 2rem;
+            }
             div {
                 h3, h2 {
                     color: $textColor1;
                     @include font700;
                     font-size: 1.5rem;
                     text-transform: uppercase;
-
+                    text-shadow: $textShadow;
                 }
                 p {
                     color: $textColor1;
                     @include font400;
-                    font-size: 14px;
-                    list-style: none;
+                    font-size: 0.875rem;
+                    text-shadow: $textShadow;
                 }
             }
         }
     }
 }
 body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
-    animation: fadeSlideOut 0.5s ease-in-out forwards;
+    animation: $animationOut;
 }
 .invisible, body #app form.invisible {
     display: none;
@@ -274,4 +281,16 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
             }
         }
     }
+}
+@media (prefers-color-scheme: dark) {
+    body.theme { background: $backgroundDark }
+    #container.theme { background: $containerBackgroundDark }
+    body.theme-b { background: $backgroundLight }
+    #container.theme-b { background: $containerBackgroundLight }
+}
+@media (prefers-color-scheme: light) {
+    body.theme { background: $backgroundLight }
+    #container.theme { background: $containerBackgroundLight }
+    body.theme-b { background: $backgroundDark }
+    #container.theme-b { background: $containerBackgroundDark }
 }

@@ -78,7 +78,7 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         presets: [
-                            ['@babel/preset-env', { targets: {"ie": "11"}}]
+                            ['@babel/preset-env', { targets: "defaults"}]
                         ]
                     }
                 }
