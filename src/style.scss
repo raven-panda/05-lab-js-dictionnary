@@ -30,8 +30,8 @@ $headerHeight: 50px;
 
 // Fonds
 $headerBackground: rgb(0, 0, 0, 0.8);
-$containerBackgroundDark: rgb(0, 0, 0, 0.5);
 $containerBackgroundLight: rgb(0, 0, 0, 0.3);
+$containerBackgroundDark: rgb(0, 0, 0, 0.5);
 $backgroundLight: top / cover no-repeat url('assets/medias/background-light.webp');
 $backgroundDark: top / cover no-repeat url('assets/medias/background-dark.webp');
 
@@ -143,7 +143,6 @@ body {
         padding-top: $headerHeight;
         box-sizing: border-box;
         display: flex;
-        flex-grow: auto;
         flex-direction: column;
         animation: fadeIn ease 0.5s;
         justify-content: center;
@@ -211,13 +210,14 @@ body {
                     color: $textColor1;
                     @include font700;
                     font-size: 1.5rem;
+                    margin-top: 2.5rem;
                     text-transform: uppercase;
                     text-shadow: $textShadow;
                 }
                 p {
                     color: $textColor1;
                     @include font400;
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     text-shadow: $textShadow;
                 }
             }
@@ -282,8 +282,13 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
 @media screen and (max-width: 486px) {
     body {
         header {
-            p {
-                font-size: 9px;
+            a {
+                font-size: 0.8125rem;
+            }
+            #menu {
+                a {
+                    font-size: 9px;
+                }
             }
         }
         #app {

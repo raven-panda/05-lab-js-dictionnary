@@ -109,7 +109,6 @@ body #container {
   padding-top: 50px;
   box-sizing: border-box;
   display: flex;
-  flex-grow: auto;
   flex-direction: column;
   animation: fadeIn ease 0.5s;
   justify-content: center;
@@ -234,7 +233,10 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
   }
 }
 @media screen and (max-width: 486px) {
-  body header p {
+  body header a {
+    font-size: 0.8125rem;
+  }
+  body header #menu a {
     font-size: 9px;
   }
   body #app {

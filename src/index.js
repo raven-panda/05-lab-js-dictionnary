@@ -21,7 +21,7 @@ function getAPIResponse(word, language, version = 'v2') {
 
             // Récupérations des éléments
             const wordElement = document.querySelector('#response #word');
-            const audioElement = document.querySelector('#response #audio');
+            const phoneticElement = document.querySelector('#response #phonetic');
             const definitionElement = document.querySelector('#response #def');
             const synonymsElement = document.querySelector('#response #synonyms');
             const antonymsElement = document.querySelector('#response #antonyms');
@@ -30,12 +30,25 @@ function getAPIResponse(word, language, version = 'v2') {
             let wordHTML = `<h2>${data[0].word}</h2>`;
             wordElement.innerHTML = wordHTML;
 
-            // Ajout de l'audio si il y en a un
-            const audioData = data[0].phonetics.find(item => item.audio !== '');
-            if (audioData) {
-                audioElement.innerHTML = `<h2></h2><audio controls src=\"${audioData.audio}\"></audio>`;
+            // Ajout de la phonétique
+            let soundHTML = '';
+            for (let phoneticsObject of data[0].phonetics) {
+                const phoneticData = phoneticsObject.text;
+                if (phoneticData)
+                    soundHTML += `<p>${phoneticData}</p>`;
+                if (soundHTML != '')
+                    break;
             }
-
+            // Ajout de l'audio si il y en a un
+            if (data[0].phonetics.find(item => item.audio !== '')) {
+                const audioData = data[0].phonetics.find(item => item.audio !== '');
+                if (audioData) {
+                    soundHTML += `<audio controls src=\"${audioData.audio}\"></audio>`;
+                }
+            }
+            console.log(soundHTML)
+            phoneticElement.innerHTML = soundHTML;
+        
             // Ajout des définitions
             let definitionHTML = "";
             for (let meaning of data[0].meanings) {
@@ -44,16 +57,13 @@ function getAPIResponse(word, language, version = 'v2') {
                 let defs = meaning.definitions;
                 let i = 0;
                 for (let def of defs) {
-                    /*if (i <= 3) {*/
+                    if (i <= 2) {
                     definitionHTML += `<p class=\"definitions\">${def.definition}</p>`;
-                    /*}
-                    if (i == 2) {
-                         let more = defs.length - i;
-                         definitionHTML += `<p id=\"show-more\">Show ${more} more...</p>`;
-                    };
+                    }
                     if (i > 2) {
-                         definitionHTML += `<p class=\"definitions invisible\">${def.definition}</p>`
-                    };*/
+                        break;
+                    };
+                    i+=1;
                 }
                 definitionHTML += "</div>";
             }
@@ -61,46 +71,42 @@ function getAPIResponse(word, language, version = 'v2') {
                 antonymsHTML = '';
             }
             definitionElement.innerHTML = definitionHTML;
-            /*const showMoreP = document.querySelector('#show-more');
-            showMoreP.addEventListener('click', function () {
-                let defPs = document.querySelectorAll('.invisible');
-                for (let defP of defPs) {
-                     defP.classList.remove('invisible');
-                }
-                showMoreP.remove();
-            })*/
 
             // Ajout des synonymes si il y en a
             let synonymsHTML = `<h2>Synonymes</h2>`;
             let synonymsList = [];
-            for (let meaning of data[0].meanings) {
-                if (meaning.synonyms && meaning.synonyms.length > 0) {
-                    synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
+            if (synonymsList.length != 0) {
+                for (let meaning of data[0].meanings) {
+                    if (meaning.synonyms && meaning.synonyms.length > 0) {
+                        synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
+                    }
                 }
+                if (synonymsList.length > 0) {
+                    synonymsHTML += `<div>${synonymsList.join('')}</div>`;
+                }
+                if (synonymsList.length == 0) {
+                    antonymsHTML = '';
+                }
+                synonymsElement.innerHTML = synonymsHTML;
             }
-            if (synonymsList.length > 0) {
-                synonymsHTML += `<div>${synonymsList.join('')}</div>`;
-            }
-            if (synonymsList.length == 0) {
-                antonymsHTML = '';
-            }
-            synonymsElement.innerHTML = synonymsHTML;
 
             // Ajout des antonymes si il y en a
             let antonymsHTML = `<h2>Antonymes</h2>`;
             let antonymsList = [];
-            for (let meaning of data[0].meanings) {
-                if (meaning.antonyms && meaning.antonyms.length > 0) {
-                    antonymsList.push(`<p>${meaning.antonyms.join(', ')}</p>`);
+            if (antonymsList.length != 0) {
+                for (let meaning of data[0].meanings) {
+                    if (meaning.antonyms && meaning.antonyms.length > 0) {
+                        antonymsList.push(`<p>${meaning.antonyms.join(', ')}</p>`);
+                    }
                 }
+                if (antonymsList.length > 0) {
+                    antonymsHTML += `<div>${antonymsList.join('')}</div>`;
+                }
+                if (antonymsList.length == 0) {
+                    antonymsHTML = '';
+                }
+                antonymsElement.innerHTML = antonymsHTML;
             }
-            if (antonymsList.length > 0) {
-                antonymsHTML += `<div>${antonymsList.join('')}</div>`;
-            }
-            if (antonymsList.length == 0) {
-                antonymsHTML = '';
-            }
-            antonymsElement.innerHTML = antonymsHTML;
         })
 
     // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale.

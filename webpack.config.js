@@ -67,7 +67,6 @@ const config = {
                 use: [
                     {
                         loader: 'html-loader',
-                        // options: { minimize: false }
                     },
                 ]
             },
