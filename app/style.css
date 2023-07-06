@@ -17,6 +17,18 @@
   src: url(assets/commissioner-latin-700-normal.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+@keyframes shortcutSearch {
+  from {
+    width: 0;
+    padding: 0 10px;
+    border: solid 2px rgb(255, 255, 255);
+  }
+  to {
+    width: 100%;
+    padding: 0 10px;
+    border: solid 2px rgb(255, 255, 255);
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -45,16 +57,6 @@
     transform: translateY(30px);
   }
 }
-@keyframes timedFade {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 :root {
   font-size: 100%;
 }
@@ -70,11 +72,39 @@ body header {
   display: flex;
   align-items: center;
   height: 50px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(255, 255, 230, 0.5);
   color: rgb(255, 255, 230);
   justify-content: space-between;
   padding: 0 0.9375rem;
   box-sizing: border-box;
+}
+body header #icons {
+  display: flex;
+}
+body header #icons #s-shortcut {
+  font: 100% "Commissioner-Regular", sans-serif;
+  width: 0;
+  padding: 0;
+  font-size: 90%;
+  height: 100%;
+  border-radius: 25px;
+  border: none;
+  box-sizing: border-box;
+  background: none;
+  color: rgb(255, 255, 255);
+}
+body header #icons #s-shortcut::placeholder {
+  color: rgba(255, 255, 230, 0.6);
+}
+body header #icons #s-shortcut.active {
+  animation: shortcutSearch 0.2s ease-in-out forwards 0s;
+}
+body header #icons #s-shortcut.active:focus-visible {
+  border: solid 2px rgb(255, 255, 200);
+  outline: none;
+}
+body header #icons #home-button {
+  margin-right: 10px;
 }
 body header #menu {
   display: flex;
@@ -83,26 +113,25 @@ body header #menu {
 body header #menu svg {
   margin-left: 0.625rem;
 }
-body header svg {
-  display: block;
-}
-body header a {
+body header #menu a {
   margin: 0;
   font: 100% "Commissioner-Regular", sans-serif;
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: rgb(255, 255, 230);
+  color: rgb(255, 255, 255);
 }
-body header a:hover {
+body header #menu a:hover {
   text-decoration: underline;
 }
-body header a p {
-  padding-left: 0.625rem;
-  opacity: 0;
+body header #menu a:hover {
+  filter: sepia(100%) saturate(200%);
 }
-body header a p.timed {
-  animation: timedFade 1s ease-in-out forwards 0.4s;
+body header svg {
+  display: block;
+}
+body header svg:hover {
+  filter: sepia(100%) saturate(200%);
 }
 body #container {
   min-height: 100vh;
@@ -161,29 +190,37 @@ body #app form input:focus-visible {
   border: solid 3px rgb(255, 255, 200);
   outline: none;
 }
-body #app form ::placeholder {
+body #app form input::placeholder {
   color: rgba(255, 255, 230, 0.6);
 }
+body #app form input.invalid:invalid::placeholder {
+  color: rgba(255, 0, 0, 0.8);
+}
+body #app form input.invalid:invalid {
+  border: solid 3px rgb(241, 74, 74);
+}
 body #app #response {
-  opacity: 0;
   background: rgba(0, 0, 0, 0.5);
 }
 body #app #response.active {
-  animation: fadeIn 0.3s ease-in-out forwards 0.1s;
   padding: 0 2rem 0 2rem;
 }
 body #app #response div h3, body #app #response div h2 {
   color: rgb(255, 255, 230);
   font: 100% "Commissioner-Bold", sans-serif;
   font-size: 1.5rem;
+  margin-top: 2.5rem;
   text-transform: uppercase;
   text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
 }
 body #app #response div p {
   color: rgb(255, 255, 230);
   font: 100% "Commissioner-Regular", sans-serif;
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
+}
+body #app #response div p:last-child {
+  margin-bottom: 2rem;
 }
 
 body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
@@ -259,11 +296,17 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
   body.theme {
     background: top/cover no-repeat url(assets/background-dark.webp);
   }
+  header.theme {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
   #container.theme {
     background: rgba(0, 0, 0, 0.5);
   }
   body.theme-b {
     background: top/cover no-repeat url(assets/background-light.webp);
+  }
+  header.theme-b {
+    background: rgba(255, 255, 230, 0.5);
   }
   #container.theme-b {
     background: rgba(0, 0, 0, 0.3);
@@ -273,11 +316,17 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
   body.theme {
     background: top/cover no-repeat url(assets/background-light.webp);
   }
+  header.theme {
+    background: rgba(255, 255, 230, 0.5);
+  }
   #container.theme {
     background: rgba(0, 0, 0, 0.3);
   }
   body.theme-b {
     background: top/cover no-repeat url(assets/background-dark.webp);
+  }
+  header.theme-b {
+    background: rgba(0, 0, 0, 0.8);
   }
   #container.theme-b {
     background: rgba(0, 0, 0, 0.5);

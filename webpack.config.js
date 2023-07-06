@@ -105,7 +105,7 @@ const config = {
                 ],
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif|webp)$/i,
+                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif|webp|ico)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: 'assets/[name][ext]',

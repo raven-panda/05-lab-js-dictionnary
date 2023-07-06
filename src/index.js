@@ -43,12 +43,12 @@ function getAPIResponse(word, language, version = 'v2') {
             if (data[0].phonetics.find(item => item.audio !== '')) {
                 const audioData = data[0].phonetics.find(item => item.audio !== '');
                 if (audioData) {
-                    soundHTML += `<audio controls src=\"${audioData.audio}\"></audio>`;
+                    soundHTML += `<audio controls src="${audioData.audio}"></audio>`;
                 }
             }
             console.log(soundHTML)
             phoneticElement.innerHTML = soundHTML;
-        
+
             // Ajout des définitions
             let definitionHTML = "";
             for (let meaning of data[0].meanings) {
@@ -63,7 +63,7 @@ function getAPIResponse(word, language, version = 'v2') {
                     if (i > 2) {
                         break;
                     };
-                    i+=1;
+                    i += 1;
                 }
                 definitionHTML += "</div>";
             }
@@ -73,58 +73,70 @@ function getAPIResponse(word, language, version = 'v2') {
             definitionElement.innerHTML = definitionHTML;
 
             // Ajout des synonymes si il y en a
-            let synonymsHTML = `<h2>Synonymes</h2>`;
+            let synonymsHTML = `<h2>Synonyms</h2>`;
             let synonymsList = [];
-            if (synonymsList.length != 0) {
-                for (let meaning of data[0].meanings) {
-                    if (meaning.synonyms && meaning.synonyms.length > 0) {
-                        synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
-                    }
+            for (let meaning of data[0].meanings) {
+                if (meaning.synonyms && meaning.synonyms.length > 0) {
+                    synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
                 }
-                if (synonymsList.length > 0) {
-                    synonymsHTML += `<div>${synonymsList.join('')}</div>`;
-                }
-                if (synonymsList.length == 0) {
-                    antonymsHTML = '';
-                }
-                synonymsElement.innerHTML = synonymsHTML;
             }
+            if (synonymsList.length > 0) {
+                synonymsHTML += `<div>${synonymsList.join('')}</div>`;
+            }
+            if (synonymsList.length == 0) {
+                synonymsHTML = '';
+            }
+            synonymsElement.innerHTML = synonymsHTML;
 
             // Ajout des antonymes si il y en a
-            let antonymsHTML = `<h2>Antonymes</h2>`;
+            let antonymsHTML = `<h2>Antonyms</h2>`;
             let antonymsList = [];
-            if (antonymsList.length != 0) {
-                for (let meaning of data[0].meanings) {
-                    if (meaning.antonyms && meaning.antonyms.length > 0) {
-                        antonymsList.push(`<p>${meaning.antonyms.join(', ')}</p>`);
-                    }
+            console.log(data)
+            for (let meaning of data[0].meanings) {
+                if (meaning.antonyms && meaning.antonyms.length > 0) {
+                    antonymsList.push(`<p>${meaning.antonyms.join(', ')}</p>`);
                 }
-                if (antonymsList.length > 0) {
-                    antonymsHTML += `<div>${antonymsList.join('')}</div>`;
-                }
-                if (antonymsList.length == 0) {
-                    antonymsHTML = '';
-                }
-                antonymsElement.innerHTML = antonymsHTML;
             }
+            if (antonymsList.length > 0) {
+                antonymsHTML += `<div>${antonymsList.join('')}</div>`;
+            }
+            if (antonymsList.length == 0) {
+                antonymsHTML = '';
+            }
+            antonymsElement.innerHTML = antonymsHTML;
         })
 
-    // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale.
+    // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
     .catch(e => {
         alert('Cannot find your word, please try again.');
         window.location.reload();
     });
+
+
 }
 
 // BOUTON MODE CLAIR OU SOMBRE
-const switchMode = document.querySelector('#switch');
+const switchMode = document.querySelector('#switch svg');
 const container = document.querySelector('#container')
 const body = document.querySelector('body');
-
+const header = document.querySelector('header');
 switchMode.addEventListener('click', function () {
     container.classList.toggle('theme-b');
     body.classList.toggle('theme-b');
+    header.classList.toggle('theme-b');
+    switchMode.classList.toggle('theme-b')
+
 });
+
+// BOUTON BARRE DE RECHERCHE DE L'EN TÊTE
+const searchButton = document.querySelector('#icons > svg');
+const shortcutInput = document.querySelector('#s-shortcut');
+const aMenu = document.querySelector('#menu a');
+searchButton.onclick = function () {
+    shortcutInput.classList.add('active');
+    searchButton.classList.add('invisible');
+    aMenu.classList.add('active')
+}
 
 // ENVOI DU FORMULAIRE
 // Récupération des éléments
@@ -132,34 +144,52 @@ const title = document.querySelector('h1');
 const desc = document.querySelector('#desc');
 const app = document.querySelector('#app');
 const responseBlock = document.querySelector('#response');
+const mainForm = document.querySelector('#app form');
+const shortcutForm = document.querySelector('#icons form');
 
-// Évennement de l'envoi
-const form = document.querySelector('#app form');
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
+function submit(e) {
     // Récupérer le mot entré dans l'input par l'utilisateur
-    const word = document.querySelector('input').value;
-    
+    const word = e.querySelector('input').value;
+
     // Ajout des classes aux éléments qui doivent disparaître
     title.classList.add('submitted');
     desc.classList.add('submitted');
-    form.classList.add('submitted');
+    mainForm.classList.add('submitted');
 
     // Mise invisible du contenu de la première page et requête de l'API retardée pour que ça se fasse après l'animation
     setTimeout(function() {
         title.classList.add('invisible');
         desc.classList.add('invisible');
         app.classList.add('submitted');
-        form.classList.add('invisible');
+        mainForm.classList.add('invisible');
         getAPIResponse(word, 'en');
         responseBlock.classList.add('active')
+        shortcutInput.classList.remove('active');
+        searchButton.classList.remove('invisible');
+        aMenu.classList.remove('active');
         document.title = `${word} - Dictionary`;
     }, 600)
+}
 
-    // Affichage temporisé du message 'Want to search for another definition ?'
-    const timedMsg = document.querySelector('a p');
-    setTimeout(function() {
-        timedMsg.classList.add('timed');
-    }, 10000)
+// Évennement de l'envoi
+mainForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submit(mainForm);
 });
+shortcutForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    submit(shortcutForm);
+})
+
+document.addEventListener('invalid', (function() {
+    return function (e) {
+        e.preventDefault();
+    };
+})(), true)
+
+const input = document.querySelector('#app input');
+const errorText = document.querySelector('label')
+input.addEventListener('invalid', function () {
+    input.classList.add('invalid');
+    errorText.classList.add('invalid');
+})

@@ -18,32 +18,47 @@
 
 // VARIABLES
 // Animations
-$responseAnimation: fadeIn 0.3s ease-in-out forwards 0.1s;
+// $responseAnimation: fadeIn 0.3s ease-in-out forwards 0.1s;
 $titleAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0s;
 $descAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0.1s;
 $inputAnimationIn: fadeSlideIn 0.5s ease-in-out forwards 0.2s;
 $animationOut: fadeSlideOut 0.3s ease-in-out forwards;
+$shortcutAnimation: shortcutSearch 0.2s ease-in-out forwards 0s;
 
 // Taille de l'entête
 $headerHeightWatch: 10px;
 $headerHeight: 50px;
 
 // Fonds
-$headerBackground: rgb(0, 0, 0, 0.8);
-$containerBackgroundLight: rgb(0, 0, 0, 0.3);
-$containerBackgroundDark: rgb(0, 0, 0, 0.5);
+$headerBackgroundLight: rgba(255, 255, 230, 0.5);
+$headerBackgroundDark: rgba(0, 0, 0, 0.8);
+$containerBackgroundLight: rgba(0, 0, 0, 0.3);
+$containerBackgroundDark: rgba(0, 0, 0, 0.5);
 $backgroundLight: top / cover no-repeat url('assets/medias/background-light.webp');
 $backgroundDark: top / cover no-repeat url('assets/medias/background-dark.webp');
 
 // Couleurs de police
 $textColor1: rgb(255, 255, 230);
 $textColor2: rgb(255, 255, 255);
-$textPlaceholder: rgb(255, 255, 230, 0.6);
+$textPlaceholder: rgba(255, 255, 230, 0.6);
 $active: rgb(255, 255, 200);
 $textShadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
-
+$invalidInput: rgba(255, 168, 168);
+$invalidPlaceholder: rgba(255, 229, 229, 0.8);
 
 // Fonctions
+@keyframes shortcutSearch {
+    from {
+        width: 0;
+        padding: 0 10px;
+        border: solid 2px $textColor2;
+    }
+    to {
+        width: 100%;
+        padding: 0 10px;
+        border: solid 2px $textColor2;
+    }
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -72,16 +87,6 @@ $textShadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
         transform: translateY(30px);
     }
 }
-@keyframes timedFade {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 @mixin font700 {
     font: 100% 'Commissioner-Bold', sans-serif;
 }
@@ -104,37 +109,66 @@ body {
         display: flex;
         align-items: center;
         height: $headerHeight;
-        background: $headerBackground;
+        background: $headerBackgroundLight;
         color: $textColor1;
         justify-content: space-between;
         padding: 0 0.9375rem;
         box-sizing: border-box;
+        #icons {
+            display: flex;
+            #s-shortcut {
+                @include font400;
+                width: 0;
+                padding: 0;
+                font-size: 90%;
+                height: 100%;
+                border-radius: 25px;
+                border: none;
+                box-sizing: border-box;
+                background: none;
+                color: $textColor2;
+
+                &::placeholder {
+                    color: $textPlaceholder;
+                }
+                &.active {
+                    animation: $shortcutAnimation;
+                    &:focus-visible {
+                        border: solid 2px $active;
+                        outline: none;
+                    }
+                }
+            }
+            #home-button {
+                margin-right: 10px;
+            }
+        }
         #menu {
             display: flex;
             align-items: center;
             svg {
                 margin-left: 0.625rem;
+                &.theme-b {
+                    transform: rotate(180deg);
+                }
+            }
+            a {
+                margin: 0;
+                @include font400;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: $textColor2;
+                &:hover {
+                    text-decoration: underline;
+                    filter: sepia(100%) saturate(200%);
+                }
             }
         }
         svg {
             display: block;
-        }
-        a {
-            margin: 0;
-            @include font400;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: $textColor1;
             &:hover {
-                text-decoration: underline;
-            }
-            p {
-                padding-left: 0.625rem;
-                opacity: 0;
-                &.timed {
-                    animation: timedFade 1s ease-in-out forwards 0.4s;
-                }
+                filter: sepia(100%) saturate(200%);
             }
         }
     }
@@ -193,16 +227,32 @@ body {
                     border: solid 3px $active;
                     outline: none;
                 }
+                &::placeholder {
+                    color: $textPlaceholder;
+                }
+                &.invalid:invalid::placeholder {
+                    color: $invalidPlaceholder;
+                }
+                &.invalid:invalid {
+                    border: solid 3px $invalidInput;
+                }
             }
-            ::placeholder {
-                color: $textPlaceholder;
+            label {
+                display: none;
+                @include font400;
+                font-size: 1.25rem;
+                color: $invalidInput;
+                margin: 0.625rem 15% 0 15%;
+                text-align: left;
+                text-shadow: $textShadow;
+                &.invalid {
+                    display: block;
+                }
             }
         }
         #response {
-            opacity: 0;
             background: rgb(0, 0, 0, 0.5);
             &.active {
-                animation: $responseAnimation;
                 padding: 0 2rem 0 2rem;
             }
             div {
@@ -219,6 +269,9 @@ body {
                     @include font400;
                     font-size: 1rem;
                     text-shadow: $textShadow;
+                    &:last-child {
+                        margin-bottom: 2rem;
+                    }
                 }
             }
         }
@@ -248,6 +301,10 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
                     font-size: 1.125rem;
                     margin: 0 30px;
                 }
+                label {
+                    font-size: 1.125rem;
+                    margin: 0.625rem 1.875rem;
+                }
             }
         }
     }
@@ -275,6 +332,10 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
                     font-size: 1.125rem;
                     margin: 0;
                 }
+                label {
+                    font-size: 1.125rem;
+                    margin: 0.625rem 0;
+                }
             }
         }
     }
@@ -288,6 +349,9 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
             #menu {
                 a {
                     font-size: 9px;
+                    &.active {
+                        display: none;
+                    }
                 }
             }
         }
@@ -306,19 +370,27 @@ body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
                     font-size: 1.125rem;
                     margin: 0;
                 }
+                label {
+                    font-size: 1.125rem;
+                    margin: 0.625rem 0;
+                }
             }
         }
     }
 }
 @media (prefers-color-scheme: dark) {
     body.theme { background: $backgroundDark }
+    header.theme { background-color: $headerBackgroundDark}
     #container.theme { background: $containerBackgroundDark }
     body.theme-b { background: $backgroundLight }
+    header.theme-b { background: $headerBackgroundLight }
     #container.theme-b { background: $containerBackgroundLight }
 }
 @media (prefers-color-scheme: light) {
     body.theme { background: $backgroundLight }
+    header.theme { background: $headerBackgroundLight}
     #container.theme { background: $containerBackgroundLight }
     body.theme-b { background: $backgroundDark }
+    header.theme-b { background: $headerBackgroundDark}
     #container.theme-b { background: $containerBackgroundDark }
 }
