@@ -2,333 +2,59 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./src/style.scss ***!
   \*****************************************************************************************************************************************************************/
 @font-face {
-  font-family: "Commissioner-Regular";
-  font-style: normal;
+  font-family: "Commissioner";
   font-weight: 400;
-  font-stretch: 100%;
   src: url(assets/commissioner-latin-400-normal.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Commissioner-Bold";
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  src: url(assets/commissioner-latin-700-normal.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@keyframes shortcutSearch {
-  from {
-    width: 0;
-    padding: 0 10px;
-    border: solid 2px rgb(255, 255, 255);
-  }
-  to {
-    width: 100%;
-    padding: 0 10px;
-    border: solid 2px rgb(255, 255, 255);
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes fadeSlideOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+  font-family: "Commissioner";
+  font-weight: 600;
+  src: url(assets/commissioner-latin-600-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 :root {
   font-size: 100%;
 }
 
-body {
+body, body h1, body input {
   margin: 0;
-  min-height: 100vh;
+  font: 400 100% "Commissioner";
 }
-body header {
-  position: fixed;
-  z-index: 1;
-  width: 100vw;
+
+header {
   display: flex;
   align-items: center;
-  height: 50px;
-  background: rgba(255, 255, 230, 0.5);
-  color: rgb(255, 255, 230);
+  background: rgb(47, 72, 88);
+  min-height: 80px;
+  padding: 0 15px;
   justify-content: space-between;
-  padding: 0 0.9375rem;
-  box-sizing: border-box;
 }
-body header #icons {
-  display: flex;
-}
-body header #icons #s-shortcut {
-  font: 100% "Commissioner-Regular", sans-serif;
-  width: 0;
-  padding: 0;
-  font-size: 90%;
-  height: 100%;
-  border-radius: 25px;
-  border: none;
-  box-sizing: border-box;
-  background: none;
-  color: rgb(255, 255, 255);
-}
-body header #icons #s-shortcut::placeholder {
-  color: rgba(255, 255, 230, 0.6);
-}
-body header #icons #s-shortcut.active {
-  animation: shortcutSearch 0.2s ease-in-out forwards 0s;
-}
-body header #icons #s-shortcut.active:focus-visible {
-  border: solid 2px rgb(255, 255, 200);
-  outline: none;
-}
-body header #icons #home-button {
-  margin-right: 10px;
-}
-body header #menu {
+header #header-title {
   display: flex;
   align-items: center;
+  gap: 10px;
+  color: rgb(182, 240, 230);
 }
-body header #menu svg {
-  margin-left: 0.625rem;
-}
-body header #menu a {
-  margin: 0;
-  font: 100% "Commissioner-Regular", sans-serif;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-}
-body header #menu a:hover {
-  text-decoration: underline;
-}
-body header #menu a:hover {
-  filter: sepia(100%) saturate(200%);
-}
-body header svg {
-  display: block;
-}
-body header svg:hover {
-  filter: sepia(100%) saturate(200%);
-}
-body #container {
-  min-height: 100vh;
-  padding-top: 50px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn ease 0.5s;
-  justify-content: center;
-  align-items: center;
-}
-body #app {
-  display: grid;
-  grid: auto 5fr auto/auto;
-  padding-bottom: 6.25rem;
-  text-align: center;
-}
-body #app.submitted {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-body #app h1 {
-  font: 100% "Commissioner-Bold", sans-serif;
-  font-size: 4.5rem;
-  opacity: 0;
-  color: rgb(255, 255, 230);
-  margin: 0;
-  animation: fadeSlideIn 0.5s ease-in-out forwards 0s;
-}
-body #app #desc {
-  font: 100% "Commissioner-Regular", sans-serif;
+header #header-title h1 {
+  font: 600 100% "Commissioner";
   font-size: 2rem;
-  opacity: 0;
-  margin: 3% 0 10% 0;
-  font-weight: 400;
-  color: rgb(255, 255, 255);
-  animation: fadeSlideIn 0.5s ease-in-out forwards 0.1s;
-}
-body #app form {
-  display: grid;
-}
-body #app form input {
-  font: 100% "Commissioner-Regular", sans-serif;
-  font-size: 1.5rem;
-  color: rgb(255, 255, 255);
-  margin: 0 15%;
-  padding: 15px 25px;
-  background: none;
-  border: solid 3px rgb(255, 255, 230);
-  border-radius: 15px;
-  opacity: 0;
-  animation: fadeSlideIn 0.5s ease-in-out forwards 0.2s;
-}
-body #app form input:focus-visible {
-  border: solid 3px rgb(255, 255, 200);
-  outline: none;
-}
-body #app form input::placeholder {
-  color: rgba(255, 255, 230, 0.6);
-}
-body #app form input.invalid:invalid::placeholder {
-  color: rgba(255, 0, 0, 0.8);
-}
-body #app form input.invalid:invalid {
-  border: solid 3px rgb(241, 74, 74);
-}
-body #app #response {
-  background: rgba(0, 0, 0, 0.5);
-}
-body #app #response.active {
-  padding: 0 2rem 0 2rem;
-}
-body #app #response div h3, body #app #response div h2 {
-  color: rgb(255, 255, 230);
-  font: 100% "Commissioner-Bold", sans-serif;
-  font-size: 1.5rem;
-  margin-top: 2.5rem;
-  text-transform: uppercase;
-  text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
-}
-body #app #response div p {
-  color: rgb(255, 255, 230);
-  font: 100% "Commissioner-Regular", sans-serif;
-  font-size: 1rem;
-  text-shadow: 0px 2px 16px #000000, 0px 2px 16px #000000, 0px 2px 16px #000000;
-}
-body #app #response div p:last-child {
-  margin-bottom: 2rem;
 }
 
-body #app h1.submitted, body #app #desc.submitted, body #app form.submitted {
-  animation: fadeSlideOut 0.3s ease-in-out forwards;
+#container {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 110px);
 }
 
-.invisible, body #app form.invisible {
-  display: none;
+footer {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background: rgb(221, 235, 244);
+  min-height: 30px;
 }
-
-@media screen and (max-width: 1300px), screen and (max-height: 731px) {
-  body #app {
-    grid: auto auto auto/46.25rem;
-  }
-  body #app h1 {
-    font-size: 3.25rem;
-  }
-  body #app #desc {
-    font-size: 1.75rem;
-    margin: 1.5625rem 0 6.25rem 0;
-    align-self: center;
-  }
-  body #app form input {
-    font-size: 1.125rem;
-    margin: 0 30px;
-  }
-}
-@media screen and (max-width: 900px), screen and (max-height: 506px) {
-  body header p {
-    font-size: 0.8125rem;
-  }
-  body #app {
-    grid: auto/60vw;
-    padding: 0;
-  }
-  body #app h1 {
-    font-size: 2.3125rem;
-  }
-  body #app #desc {
-    font-size: 1.375rem;
-    margin: 1.5625rem 0 3.125rem 0;
-    align-self: center;
-  }
-  body #app form input {
-    font-size: 1.125rem;
-    margin: 0;
-  }
-}
-@media screen and (max-width: 486px) {
-  body header a {
-    font-size: 0.8125rem;
-  }
-  body header #menu a {
-    font-size: 9px;
-  }
-  body #app {
-    grid: auto auto auto/80vw;
-  }
-  body #app h1 {
-    font-size: 2.375rem;
-  }
-  body #app #desc {
-    font-size: 1.125rem;
-    margin: 25px 0 30px 0;
-    align-self: center;
-  }
-  body #app form input {
-    font-size: 1.125rem;
-    margin: 0;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  body.theme {
-    background: top/cover no-repeat url(assets/background-dark.webp);
-  }
-  header.theme {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  #container.theme {
-    background: rgba(0, 0, 0, 0.5);
-  }
-  body.theme-b {
-    background: top/cover no-repeat url(assets/background-light.webp);
-  }
-  header.theme-b {
-    background: rgba(255, 255, 230, 0.5);
-  }
-  #container.theme-b {
-    background: rgba(0, 0, 0, 0.3);
-  }
-}
-@media (prefers-color-scheme: light) {
-  body.theme {
-    background: top/cover no-repeat url(assets/background-light.webp);
-  }
-  header.theme {
-    background: rgba(255, 255, 230, 0.5);
-  }
-  #container.theme {
-    background: rgba(0, 0, 0, 0.3);
-  }
-  body.theme-b {
-    background: top/cover no-repeat url(assets/background-dark.webp);
-  }
-  header.theme-b {
-    background: rgba(0, 0, 0, 0.8);
-  }
-  #container.theme-b {
-    background: rgba(0, 0, 0, 0.5);
-  }
+footer a {
+  text-decoration: none;
+  color: #7d5165;
 }
