@@ -15,12 +15,19 @@
 // Variables
 $height-header: 80px;
 $color-header: rgb(47, 72, 88);
+$color-dark-header: rgb(13, 20, 24) ;
 $color-header-title: rgb(182, 240, 230);
+$color-menu: rgb(76, 107, 127);
 
 $height-footer: 30px;
 $color-footer: rgb(221, 235, 244);
 
 $container-height: calc(100vh - ($height-header + $height-footer));
+$color-container: rgba(255, 255, 255, 1);
+$color-dark-container: rgb(56, 56, 56);
+
+$color-app: #f2f2f2;
+$color-dark-app: rgb(79, 79, 79);
 
 @mixin font600 {
     font: 600 100% 'Commissioner';
@@ -29,13 +36,36 @@ $container-height: calc(100vh - ($height-header + $height-footer));
     display: flex;
     align-items: center;
 }
-
+@keyframes menuOpen {
+    from {
+        background-color: $color-header-title;
+        right: 15px;
+    }
+    to {
+        background-color: $color-menu;
+        grid: 9.0625rem / 15.3125rem;
+        right: 15px;
+        border-radius: 5px;
+    }
+}
+@keyframes menuClose {
+    from {
+        background-color: $color-menu;
+        grid: 9.0625rem / 15.3125rem;
+        right: 15px;
+        border-radius: 5px;
+    }
+    to {
+        background-color: $color-header-title;
+        right: 15px;
+    }
+}
 
 
 // Core
 :root {
     font-size: 100%;
-    
+    user-select: none;
 }
 body, body h1, body input {
     margin: 0;
@@ -43,9 +73,13 @@ body, body h1, body input {
 }
 header {
     @include flex;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
     background: $color-header;
     min-height: $height-header;
     padding: 0 15px;
+    box-sizing: border-box;
     justify-content: space-between;
     #header-title {
         @include flex;
@@ -56,6 +90,49 @@ header {
             font-size: 2rem;
         }
     }
+    div:last-child {
+        display: grid;
+        grid: 2.8125rem / 2.8125rem;
+        &.active {
+            grid: 9.0625rem / 15.3125rem;
+        }
+    }
+    #menu {
+        animation: menuClose linear 0.1s 0s;
+        position: absolute;
+        display: grid;
+        grid: 2.8125rem / 2.8125rem;
+        background: center / cover no-repeat $color-header-title;
+        border-radius: 25px;
+        &.active {
+            animation: menuOpen linear 0.1s forwards 50ms;
+            span {
+                background: none;
+                grid: auto / auto;
+                justify-self: left ;
+                align-self: center;
+                height: auto; width: auto;
+            }
+            & ul {
+                display: block;
+            }
+        }
+        &.preload, &.preload span {
+            animation-duration: 0s;
+        }
+        span {
+            justify-self: center ;
+            align-self: center;
+            background: center / cover no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32px' height='32px' id='Layer_1' viewBox='0 0 32 32' fill='%232f4858'%3E%3Cpath d='M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2 s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2 S29.104,22,28,22z'/%3E%3C/svg%3E");
+            height: 32px; width: 32px;
+        }
+        ul {
+            list-style: none;
+            display: none;
+            padding: 0;
+            margin: 0;
+        }
+    }
 }
 
 
@@ -63,6 +140,12 @@ header {
 #container{
     @include flex;
     min-height: $container-height;
+    background: $color-container;
+    padding-top: $height-header;
+}
+#app {
+    background: $color-app;
+    user-select: none;
 }
 
 
@@ -75,5 +158,31 @@ footer {
     a {
         text-decoration: none;
         color: #7d5165;
+        &:active { color: red }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body.theme {
+        footer, header { background-color: $color-dark-header }
+        #container { background-color: $color-dark-container }
+        #app { background-color: $color-dark-app }
+    }
+    body.theme-b {
+        footer { background-color: $color-footer }
+        header { background-color: $color-header }
+        #container { background-color: $color-container }
+        #app{ background-color: $color-app }
+    }
+
+}
+@media (prefers-color-scheme: light) {
+    // footer.theme, header.theme { background-color: $color-header }
+    // #container.theme { background-color: $color-container }
+    // #app.theme { background-color: $color-app }
+    body.theme-b {
+        header, footer{ background-color: $color-dark-header }
+        #container { background-color: $color-dark-container }
+        #app{ background-color: $color-dark-app }
     }
 }

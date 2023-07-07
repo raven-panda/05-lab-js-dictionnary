@@ -6,7 +6,7 @@
         <link rel="shortcut icon" href="assets/dictionary.ico" type="image/x-icon">
         <title>Dictionary</title>
     <meta name="description" content="Project"><script defer src="index-bundle.js"></script><link href="style.css" rel="stylesheet"></head>
-    <body class="theme">
+    <body class="preload theme">
 
 
 
@@ -15,9 +15,17 @@
                 <img src="assets/dictionary.ico" alt="" width="45" height="45">
                 <h1>Dictionary</h1>
             </div>
-            <div id="menu">
-                <svg fill="#D8E9E6" height="45px" width="45px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 56 56" xml:space="preserve"><path d="M28,0C12.561,0,0,12.561,0,28s12.561,28,28,28s28-12.561,28-28S43.439,0,28,0z M40,41H16c-1.104,0-2-0.896-2-2s0.896-2,2-2	h24c1.104,0,2,0.896,2,2S41.104,41,40,41z M40,30H16c-1.104,0-2-0.896-2-2s0.896-2,2-2h24c1.104,0,2,0.896,2,2S41.104,30,40,30z M40,19H16c-1.104,0-2-0.896-2-2s0.896-2,2-2h24c1.104,0,2,0.896,2,2S41.104,19,40,19z"/>
-                </svg>
+            <div>
+                <div id="menu" class="preload">
+                    <span>
+
+                    </span>
+                    <ul>
+                        <li>Home</li>
+                        <li>Appearance</li>
+                        <li>Change police</li>
+                    </ul>
+                </div>
             </div>
         </header>
 
@@ -26,9 +34,10 @@
 
         <main id="container" class="theme">
             <div id="app">
-                <form action="#">
+                <form action="#" novalidate>
                     <input id="input" type="text" placeholder="Search for the word you want..." required>
-                    <label for="input">Please enter a word</label>
+                    <button type="submit">Search</button>
+                    <!-- <label for="input">Please enter a word</label> -->
                 </form>
                 <div id="response">
                     <div id="word"></div>

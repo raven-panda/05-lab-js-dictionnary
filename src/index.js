@@ -114,81 +114,63 @@ import './style.scss';
 
 // }
 
-// // BOUTON MODE CLAIR OU SOMBRE
-// const switchMode = document.querySelector('#switch svg');
-// const container = document.querySelector('#container')
-// const body = document.querySelector('body');
-// const header = document.querySelector('header');
-// switchMode.addEventListener('click', function () {
-//     container.classList.toggle('theme-b');
-//     body.classList.toggle('theme-b');
-//     header.classList.toggle('theme-b');
-//     switchMode.classList.toggle('theme-b')
 
-// });
 
-// // BOUTON BARRE DE RECHERCHE DE L'EN TÊTE
-// const searchButton = document.querySelector('#icons > svg');
-// const shortcutInput = document.querySelector('#s-shortcut');
-// const aMenu = document.querySelector('#menu a');
-// searchButton.onclick = function () {
-//     shortcutInput.classList.add('active');
-//     searchButton.classList.add('invisible');
-//     aMenu.classList.add('active')
-// }
+const mainForm = document.querySelector('#app form')
 
-// // ENVOI DU FORMULAIRE
-// // Récupération des éléments
-// const title = document.querySelector('h1');
-// const desc = document.querySelector('#desc');
-// const app = document.querySelector('#app');
-// const responseBlock = document.querySelector('#response');
-// const mainForm = document.querySelector('#app form');
-// const shortcutForm = document.querySelector('#icons form');
 
-// function submit(e) {
-//     // Récupérer le mot entré dans l'input par l'utilisateur
-//     const word = e.querySelector('input').value;
+function submit(e) {
+    // Récupérer le mot entré dans l'input par l'utilisateur
+    const word = e.querySelector('input').value;
+    alert('ça marche')
+    // Ajout des classes aux éléments qui doivent disparaître
+    // title.classList.add('submitted');
+    // desc.classList.add('submitted');
+    // mainForm.classList.add('submitted');
 
-//     // Ajout des classes aux éléments qui doivent disparaître
-//     title.classList.add('submitted');
-//     desc.classList.add('submitted');
-//     mainForm.classList.add('submitted');
+    // Mise invisible du contenu de la première page et requête de l'API retardée pour que ça se fasse après l'animation
+    // setTimeout(function() {
+    //     title.classList.add('invisible');
+    //     desc.classList.add('invisible');
+    //     app.classList.add('submitted');
+    //     mainForm.classList.add('invisible');
+    //     getAPIResponse(word, 'en');
+    //     responseBlock.classList.add('active')
+    //     shortcutInput.classList.remove('active');
+    //     searchButton.classList.remove('invisible');
+    //     aMenu.classList.remove('active');
+    //     document.title = `${word} - Dictionary`;
+    // }, 600)
+}
 
-//     // Mise invisible du contenu de la première page et requête de l'API retardée pour que ça se fasse après l'animation
-//     setTimeout(function() {
-//         title.classList.add('invisible');
-//         desc.classList.add('invisible');
-//         app.classList.add('submitted');
-//         mainForm.classList.add('invisible');
-//         getAPIResponse(word, 'en');
-//         responseBlock.classList.add('active')
-//         shortcutInput.classList.remove('active');
-//         searchButton.classList.remove('invisible');
-//         aMenu.classList.remove('active');
-//         document.title = `${word} - Dictionary`;
-//     }, 600)
-// }
+// Évennement de l'envoi
+mainForm.addEventListener('submit', function (e) {
+    if (!this.checkValidity()) {
+        e.preventDefault();
+        alert('veuillez renseigner ce champs.')
+        return false;
+    }
+});
 
-// // Évennement de l'envoi
-// mainForm.addEventListener('submit', function (e) {
-//     e.preventDefault();
-//     submit(mainForm);
-// });
-// shortcutForm.addEventListener('submit', function(e) {
-//     e.preventDefault();
-//     submit(shortcutForm);
-// })
+// MENU BURGER
+const burger = document.querySelector('#menu');
+setTimeout(function(){
+    burger.classList.remove('preload');
+},500);
+let closeClicked = false;
 
-// document.addEventListener('invalid', (function() {
-//     return function (e) {
-//         e.preventDefault();
-//     };
-// })(), true)
-
-// const input = document.querySelector('#app input');
-// const errorText = document.querySelector('label')
-// input.addEventListener('invalid', function () {
-//     input.classList.add('invalid');
-//     errorText.classList.add('invalid');
-// })
+// Bouton mode clair/sombre
+const burgerOptions = document.querySelectorAll('#menu li');
+burgerOptions[1].onclick = function () {
+    document.querySelector('body').classList.toggle('theme-b')
+}
+burgerOptions[3].onclick = function () {
+    closeClicked = true;
+}
+burger.onclick = function () {
+    this.classList.add('active');
+    if (closeClicked === true) {
+        this.classList.remove('active')
+        closeClicked = false;
+    }
+}

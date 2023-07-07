@@ -13,8 +13,49 @@
   src: url(assets/commissioner-latin-600-normal.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+@keyframes menuOpen {
+  from {
+    background-color: rgb(182, 240, 230);
+    right: 15px;
+  }
+  to {
+    background-color: rgb(76, 107, 127);
+    grid: 9.0625rem/15.3125rem;
+    right: 15px;
+    border-radius: 5px;
+  }
+}
+@keyframes menuClose {
+  from {
+    background-color: rgb(76, 107, 127);
+    grid: 9.0625rem/15.3125rem;
+    right: 15px;
+    border-radius: 5px;
+  }
+  to {
+    background-color: rgb(182, 240, 230);
+    right: 15px;
+  }
+}
+@keyframes menuOpenSvg {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes menuCloseSvg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 :root {
   font-size: 100%;
+  user-select: none;
 }
 
 body, body h1, body input {
@@ -25,9 +66,13 @@ body, body h1, body input {
 header {
   display: flex;
   align-items: center;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
   background: rgb(47, 72, 88);
   min-height: 80px;
   padding: 0 15px;
+  box-sizing: border-box;
   justify-content: space-between;
 }
 header #header-title {
@@ -40,11 +85,50 @@ header #header-title h1 {
   font: 600 100% "Commissioner";
   font-size: 2rem;
 }
+header div:last-child {
+  display: grid;
+  grid: 2.8125rem/2.8125rem;
+}
+header div:last-child.active {
+  grid: 9.0625rem/15.3125rem;
+}
+header #menu {
+  justify-items: center;
+  align-items: center;
+  animation: menuClose linear 0.2s 0s;
+  position: absolute;
+  display: grid;
+  grid: 2.8125rem/2.8125rem;
+  background: center/cover no-repeat rgb(182, 240, 230);
+  border-radius: 25px;
+}
+header #menu.active {
+  animation: menuOpen linear 0.2s forwards 50ms;
+}
+header #menu.active span {
+  animation: menuOpenSvg linear 50ms forwards 0s;
+}
+header #menu.preload, header #menu.preload span {
+  animation-duration: 0s;
+}
+header #menu span {
+  user-select: none;
+  opacity: 0;
+  content: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2732px%27 height=%2732px%27 id=%27Layer_1%27 viewBox=%270 0 32 32%27 fill=%27%232f4858%27%3E%3Cpath d=%27M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2 s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2 S29.104,22,28,22z%27/%3E%3C/svg%3E");
+  animation: menuCloseSvg linear 0.2s forwards 0.2s;
+}
 
 #container {
   display: flex;
   align-items: center;
   min-height: calc(100vh - 110px);
+  background: #ffffff;
+  padding-top: 80px;
+}
+
+#app {
+  background: #f2f2f2;
+  user-select: none;
 }
 
 footer {
@@ -57,4 +141,7 @@ footer {
 footer a {
   text-decoration: none;
   color: #7d5165;
+}
+footer a:active {
+  color: red;
 }
