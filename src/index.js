@@ -126,46 +126,18 @@ function submitForm(e) {
 
 // Évennement de l'envoi
 const form = document.querySelector('form')
-const docBody = document.querySelector('body');
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (window.matchMedia("(max-width: 412px)").matches && docBody.classList.contains('initial412')) {
-        docBody.classList.replace('initial412', 'active412');
-        return;
-    }
     if (!this.checkValidity()) {
         alert('veuillez renseigner ce champs.')
         return false;
     }
     submitForm(this);
-    docBody.classList.replace('active412', 'initial412');
 });
 
 // Bouton pour le mode sombre/clair
-
-document.querySelector('#mode-switch').onclick = function () {
-    docBody.classList.toggle('theme-b');
+const switchMode = document.querySelector('#mode-switch');
+switchMode.onclick = function () {
+    switchMode.classList.toggle('switched')
+    document.querySelector('body').classList.toggle('theme-b')
 }
-
-// Basculer de police
-const fontSelection = document.querySelector('#font-selection');
-const initOpt = document.querySelector('.init-opt');
-fontSelection.onclick = () => { 
-    if (initOpt) initOpt.remove()
-}
-fontSelection.addEventListener('change', function () {
-    if (initOpt) {
-        initOpt.remove();
-    }
-    if (this.value == 'sans') {
-        docBody.classList.remove('serif', 'mono');
-    };
-    if (this.value == 'serif') {
-        docBody.classList.remove('mono');
-        docBody.classList.add('serif');
-    };
-    if (this.value == 'mono') {
-        docBody.classList.remove('serif');
-        docBody.classList.add('mono');
-    };
-})
