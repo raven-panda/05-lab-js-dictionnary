@@ -110,13 +110,13 @@ function getAPIResponse(word, language, version = 'v2') {
             document.querySelector('#container').classList.add('after');
         })
 
-    // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
-    .catch(e => {
-        alert('Cannot find your word, please try again.');
-    });
+        // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
+        .catch(e => {
+            alert('Cannot find your word, please try again.');
+        });
 }
 
-function submit(e) {
+function submitForm(e) {
     // Récupérer le mot entré dans l'input par l'utilisateur
     const word = e.querySelector('input').value;
     
@@ -127,12 +127,12 @@ function submit(e) {
 // Évennement de l'envoi
 const form = document.querySelector('form')
 form.addEventListener('submit', function (e) {
+    e.preventDefault();
     if (!this.checkValidity()) {
-        e.preventDefault();
         alert('veuillez renseigner ce champs.')
         return false;
     }
-    submit(this);
+    submitForm(this);
 });
 
 // Bouton pour le mode sombre/clair
