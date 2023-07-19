@@ -103,16 +103,13 @@ function getAPIResponse(word, language, version = 'v2') {
                 antonymsHTML = '';
             }
             antonymsElement.innerHTML = antonymsHTML;
-            const pageBefore = document.querySelector('#before')
-            const pageAfter = document.querySelector('#response');
-            pageBefore.hidden = true;
-            pageAfter.classList.add('after');
-            document.querySelector('#container').classList.add('after');
+            document.querySelector('#before').hidden = true;
+            document.querySelector('#response').classList.add('after');
         })
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-            alert('Cannot find your word, please try again.');
+            alert('Cannot find your word, please try again.'); // changer ?
         });
 }
 

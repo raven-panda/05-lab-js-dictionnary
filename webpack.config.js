@@ -44,6 +44,9 @@ const config = {
             template: './src/index.html',
             filename: '../app/index.html',
         }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
         // new HtmlWebpackPlugin({
         //     chunks: ['definition'],
         //     inject: true,
@@ -54,9 +57,6 @@ const config = {
         //     template: './src/definition.html',
         //     filename: '../app/definition.html',
         // }),
-        new MiniCssExtractPlugin({
-            filename: 'style.css',
-        }),
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -105,10 +105,17 @@ const config = {
                 ],
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|jpe?g|png|gif|webp|ico)$/i,
+                test: /\.(eot|svg|jpe?g|png|gif|webp|ico)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: 'assets/[name][ext]',
+                },
+            },
+            {
+                test: /\.(ttf|woff|woff2)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/fonts/[name][ext]',
                 },
             },
 
