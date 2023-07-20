@@ -39,7 +39,10 @@
 }
 :root {
   font-size: 100%;
-  user-select: none;
+}
+
+body {
+  background: top/cover no-repeat url(assets/light_bg.jpg);
 }
 
 body, body h1, body input {
@@ -64,10 +67,8 @@ header #header-title {
   text-decoration: none;
   padding-right: 15px;
 }
-header #header-title h1 {
-  font: 600 2rem "Commissioner", sans-serif;
-}
 header #mode-box {
+  user-select: none;
   display: flex;
   min-width: 210px;
   justify-content: flex-end;
@@ -80,15 +81,12 @@ header #mode-switch:hover {
 form {
   display: grid;
   grid: 52px/500px 52px;
-  font-size: 1rem;
 }
 form input {
   padding: 0.9375rem;
   border: none;
 }
 form button {
-  font: 600 2rem "Commissioner", sans-serif;
-  font-size: 1rem;
   outline: none;
   border: none;
   cursor: pointer;
@@ -105,13 +103,12 @@ form button:active {
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 125px);
-  background: #fdfdfd;
+  background: rgba(253, 253, 253, 0.6235294118);
   box-sizing: border-box;
   padding: 0;
 }
 
 #app {
-  user-select: none;
   background-color: #f2f2f2;
   padding: 0 20px;
   box-sizing: border-box;
@@ -138,18 +135,35 @@ form button:active {
 #app #response {
   display: none;
   width: 50vw;
-  user-select: text;
 }
 #app #response h2, #app #response h3 {
   text-transform: capitalize;
   font-size: 1.4rem;
 }
-#app #response.after {
+#app #response p {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+}
+#app #response div {
   display: flex;
   flex-direction: column;
 }
-#app #response p {
-  font-size: 1rem;
+#app.after {
+  animation: responseFade 0.2s linear 1 forwards;
+}
+@keyframes responseFade {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+#app.after #response {
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
@@ -170,7 +184,6 @@ footer a:active {
 footer #font-selection {
   min-width: 171px;
   min-height: 35px;
-  font-size: 1.4rem;
   padding-left: 1rem;
   border-radius: 10px;
   outline: none;
@@ -217,16 +230,26 @@ body.mono header #header-title h1 {
   header #mode-switch {
     content: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23B6F0E6%27 height=%2745px%27 shape-rendering=%27geometricPrecision%27 text-rendering=%27geometricPrecision%27 image-rendering=%27optimizeQuality%27 fill-rule=%27evenodd%27 clip-rule=%27evenodd%27 viewBox=%270 0 512 262.86%27%3E%3Cpath fill-rule=%27nonzero%27 d=%27M316.78 16.55h-205.9c-30.5 0-58.22 12.48-78.31 32.57C12.47 69.21 0 96.93 0 127.44c0 30.5 12.47 58.22 32.57 78.31 20.09 20.1 47.81 32.57 78.31 32.57h193.25c21.54 15.43 47.9 24.54 76.26 24.54h.18c36.14 0 69.02-14.79 92.83-38.6 23.8-23.81 38.6-56.67 38.6-92.83 0-36.15-14.78-69.03-38.63-92.8C449.53 14.8 416.67 0 380.57 0h-.18c-23.02 0-44.72 6.02-63.61 16.55zm70.62 97.17.43.09c.82-3.45 2.83-6.19 6.04-8.16 3.2-1.98 6.53-2.57 10.01-1.75l.1-.43c-3.47-.82-6.2-2.83-8.17-6.03-1.98-3.22-2.57-6.55-1.75-10.01l-.43-.1c-.82 3.47-2.83 6.2-6.03 8.18-3.21 1.98-6.55 2.56-10.02 1.74l-.1.43c3.47.82 6.2 2.84 8.18 6.04 1.99 3.19 2.56 6.52 1.74 10zm36.87 16.77.53.12c1.02-4.35 3.55-7.78 7.58-10.26 4.02-2.49 8.2-3.22 12.56-2.19l.13-.53c-4.35-1.03-7.78-3.55-10.26-7.59-2.49-4.03-3.22-8.22-2.2-12.56l-.53-.12c-1.02 4.35-3.55 7.77-7.58 10.26-4.02 2.49-8.21 3.22-12.56 2.19l-.13.53c4.36 1.03 7.78 3.55 10.26 7.58 2.49 4.02 3.22 8.22 2.2 12.57zm-38.79-61.01c-15.69 7.67-26.98 23.26-28.29 41.93-1.96 27.88 19.05 52.06 46.92 54.02 13.23.93 25.64-3.32 35.22-11.02 4.75-3.82 9.66-.45 7.59 4.36-11.33 26.42-38.45 44.04-68.74 41.91-38.29-2.69-67.14-35.91-64.45-74.19C316.3 89.8 347.05 61.67 383.44 62c6.71.06 8.13 4.5 2.04 7.48zm-5.09-53.95h.18c63.75 0 115.91 52.15 115.91 115.9 0 63.75-52.23 115.91-115.91 115.91h-.18c-63.68 0-115.91-52.16-115.91-115.91s52.16-115.9 115.91-115.9z%27/%3E%3C/svg%3E");
   }
+  body.theme {
+    background: top/cover no-repeat url(assets/dark_bg.jpg);
+  }
   body.theme footer, body.theme header {
     background-color: #0d1418;
   }
   body.theme #container {
-    background-color: #383838;
+    background-color: rgba(0, 0, 0, 0.6235294118);
   }
   body.theme #app {
     background-color: #4f4f4f;
     color: #f2f2f2;
   }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 768px) {
+  body.theme #app {
+    background-color: rgba(79, 79, 79, 0.3725490196);
+  }
+}
+@media (prefers-color-scheme: dark) {
   body.theme header #mode-switch {
     content: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23B6F0E6%27 height=%2745px%27 shape-rendering=%27geometricPrecision%27 text-rendering=%27geometricPrecision%27 image-rendering=%27optimizeQuality%27 fill-rule=%27evenodd%27 clip-rule=%27evenodd%27 viewBox=%270 0 512 262.86%27%3E%3Cpath fill-rule=%27nonzero%27 d=%27M316.78 16.55h-205.9c-30.5 0-58.22 12.48-78.31 32.57C12.47 69.21 0 96.93 0 127.44c0 30.5 12.47 58.22 32.57 78.31 20.09 20.1 47.81 32.57 78.31 32.57h193.25c21.54 15.43 47.9 24.54 76.26 24.54h.18c36.14 0 69.02-14.79 92.83-38.6 23.8-23.81 38.6-56.67 38.6-92.83 0-36.15-14.78-69.03-38.63-92.8C449.53 14.8 416.67 0 380.57 0h-.18c-23.02 0-44.72 6.02-63.61 16.55zm70.62 97.17.43.09c.82-3.45 2.83-6.19 6.04-8.16 3.2-1.98 6.53-2.57 10.01-1.75l.1-.43c-3.47-.82-6.2-2.83-8.17-6.03-1.98-3.22-2.57-6.55-1.75-10.01l-.43-.1c-.82 3.47-2.83 6.2-6.03 8.18-3.21 1.98-6.55 2.56-10.02 1.74l-.1.43c3.47.82 6.2 2.84 8.18 6.04 1.99 3.19 2.56 6.52 1.74 10zm36.87 16.77.53.12c1.02-4.35 3.55-7.78 7.58-10.26 4.02-2.49 8.2-3.22 12.56-2.19l.13-.53c-4.35-1.03-7.78-3.55-10.26-7.59-2.49-4.03-3.22-8.22-2.2-12.56l-.53-.12c-1.02 4.35-3.55 7.77-7.58 10.26-4.02 2.49-8.21 3.22-12.56 2.19l-.13.53c4.36 1.03 7.78 3.55 10.26 7.58 2.49 4.02 3.22 8.22 2.2 12.57zm-38.79-61.01c-15.69 7.67-26.98 23.26-28.29 41.93-1.96 27.88 19.05 52.06 46.92 54.02 13.23.93 25.64-3.32 35.22-11.02 4.75-3.82 9.66-.45 7.59 4.36-11.33 26.42-38.45 44.04-68.74 41.91-38.29-2.69-67.14-35.91-64.45-74.19C316.3 89.8 347.05 61.67 383.44 62c6.71.06 8.13 4.5 2.04 7.48zm-5.09-53.95h.18c63.75 0 115.91 52.15 115.91 115.9 0 63.75-52.23 115.91-115.91 115.91h-.18c-63.68 0-115.91-52.16-115.91-115.91s52.16-115.9 115.91-115.9z%27/%3E%3C/svg%3E");
   }
@@ -237,6 +260,9 @@ body.mono header #header-title h1 {
   body.theme #font-selection:hover {
     background-color: #4e4e4e;
   }
+  body.theme-b {
+    background: top/cover no-repeat url(assets/dark_bg.jpg);
+  }
   body.theme-b footer {
     background-color: #ddebf4;
   }
@@ -244,8 +270,15 @@ body.mono header #header-title h1 {
     background-color: #2f4858;
   }
   body.theme-b #container {
-    background-color: #fdfdfd;
+    background-color: rgba(253, 253, 253, 0.6235294118);
   }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 768px) {
+  body.theme-b #app {
+    background-color: rgba(79, 79, 79, 0.3725490196);
+  }
+}
+@media (prefers-color-scheme: dark) {
   body.theme-b #app {
     background-color: #f2f2f2;
     color: #0d1418;
@@ -268,16 +301,26 @@ body.mono header #header-title h1 {
   #font-selection {
     background: #eaf7ff;
   }
+  body.theme-b {
+    background: top/cover no-repeat url(assets/dark_bg.jpg);
+  }
   body.theme-b header, body.theme-b footer {
     background-color: #0d1418;
   }
   body.theme-b #container {
-    background-color: #383838;
+    background-color: rgba(0, 0, 0, 0.6235294118);
   }
   body.theme-b #app {
     background-color: #4f4f4f;
     color: #f2f2f2;
   }
+}
+@media screen and (prefers-color-scheme: light) and (max-width: 768px) {
+  body.theme-b #app {
+    background-color: rgba(79, 79, 79, 0.3725490196);
+  }
+}
+@media (prefers-color-scheme: light) {
   body.theme-b header #mode-switch {
     content: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27%23B6F0E6%27 height=%2745px%27 shape-rendering=%27geometricPrecision%27 text-rendering=%27geometricPrecision%27 image-rendering=%27optimizeQuality%27 fill-rule=%27evenodd%27 clip-rule=%27evenodd%27 viewBox=%270 0 512 262.86%27%3E%3Cpath fill-rule=%27nonzero%27 d=%27M316.78 16.55h-205.9c-30.5 0-58.22 12.48-78.31 32.57C12.47 69.21 0 96.93 0 127.44c0 30.5 12.47 58.22 32.57 78.31 20.09 20.1 47.81 32.57 78.31 32.57h193.25c21.54 15.43 47.9 24.54 76.26 24.54h.18c36.14 0 69.02-14.79 92.83-38.6 23.8-23.81 38.6-56.67 38.6-92.83 0-36.15-14.78-69.03-38.63-92.8C449.53 14.8 416.67 0 380.57 0h-.18c-23.02 0-44.72 6.02-63.61 16.55zm70.62 97.17.43.09c.82-3.45 2.83-6.19 6.04-8.16 3.2-1.98 6.53-2.57 10.01-1.75l.1-.43c-3.47-.82-6.2-2.83-8.17-6.03-1.98-3.22-2.57-6.55-1.75-10.01l-.43-.1c-.82 3.47-2.83 6.2-6.03 8.18-3.21 1.98-6.55 2.56-10.02 1.74l-.1.43c3.47.82 6.2 2.84 8.18 6.04 1.99 3.19 2.56 6.52 1.74 10zm36.87 16.77.53.12c1.02-4.35 3.55-7.78 7.58-10.26 4.02-2.49 8.2-3.22 12.56-2.19l.13-.53c-4.35-1.03-7.78-3.55-10.26-7.59-2.49-4.03-3.22-8.22-2.2-12.56l-.53-.12c-1.02 4.35-3.55 7.77-7.58 10.26-4.02 2.49-8.21 3.22-12.56 2.19l-.13.53c4.36 1.03 7.78 3.55 10.26 7.58 2.49 4.02 3.22 8.22 2.2 12.57zm-38.79-61.01c-15.69 7.67-26.98 23.26-28.29 41.93-1.96 27.88 19.05 52.06 46.92 54.02 13.23.93 25.64-3.32 35.22-11.02 4.75-3.82 9.66-.45 7.59 4.36-11.33 26.42-38.45 44.04-68.74 41.91-38.29-2.69-67.14-35.91-64.45-74.19C316.3 89.8 347.05 61.67 383.44 62c6.71.06 8.13 4.5 2.04 7.48zm-5.09-53.95h.18c63.75 0 115.91 52.15 115.91 115.9 0 63.75-52.23 115.91-115.91 115.91h-.18c-63.68 0-115.91-52.16-115.91-115.91s52.16-115.9 115.91-115.9z%27/%3E%3C/svg%3E");
   }
@@ -289,7 +332,79 @@ body.mono header #header-title h1 {
     background-color: #4e4e4e;
   }
 }
-@media screen and (max-width: 1080px) {
+@media screen and (min-width: 2400px) {
+  header {
+    grid-template-columns: 1fr 870px 1fr;
+    min-height: 100px;
+    padding: 0 1.875rem;
+  }
+  header #header-title {
+    gap: 10px;
+    padding-right: 15px;
+  }
+  header #header-title img {
+    width: 60px;
+    height: 60px;
+  }
+  header #mode-box {
+    min-width: 210px;
+  }
+  form {
+    grid: 70px/800px 70px;
+  }
+  form input {
+    padding: 1.875rem;
+  }
+  form button svg {
+    width: 40px;
+    height: 40px;
+  }
+  #container {
+    min-height: calc(100vh - 170px);
+  }
+  #app {
+    padding: 0 2.5rem;
+  }
+  #app #before h2 {
+    font-size: 5rem;
+  }
+  #app #before p {
+    font-size: 2.5rem;
+  }
+  #app #before p:last-child {
+    font-size: 1.75rem;
+    margin: 2.5rem 0 1.875rem 0;
+  }
+  #app #response h2, #app #response h3 {
+    text-transform: capitalize;
+    font-size: 2.8rem;
+  }
+  #app #response p {
+    font-size: 2rem;
+  }
+  footer {
+    padding: 0 15px;
+    min-height: 70px;
+  }
+  footer #font-selection {
+    min-width: 264px;
+    padding-left: 1rem;
+    border-radius: 10px;
+  }
+  body.sans input, body.sans #font-selection, body.serif input, body.serif #font-selection {
+    font-size: 2rem;
+  }
+  body.sans header #header-title h1, body.serif header #header-title h1 {
+    font-size: 3rem;
+  }
+  body.mono input, body.mono #font-selection {
+    font-size: 1.6rem;
+  }
+  body.mono header #header-title h1 {
+    font-size: 2.4rem;
+  }
+}
+@media screen and (max-width: 1028px) {
   header h1 {
     display: none;
   }
@@ -305,24 +420,70 @@ body.mono header #header-title h1 {
     font-size: 1rem;
   }
 }
-@media screen and (max-width: 676px) {
+@media screen and (max-width: 768px) {
+  body.sans input, body.sans #font-selection, body.serif input, body.serif #font-selection, body.mono input, body.mono #font-selection {
+    font-size: 1rem;
+  }
+  header {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+  }
+  #container {
+    min-height: calc(100vh - 45px);
+    box-sizing: border-box;
+  }
   #app {
     display: flex;
     align-items: center;
-    min-height: calc(100vh - 125px);
+    padding-top: 80px;
+    min-height: calc(100vh - 45px);
+    background-color: rgba(242, 242, 242, 0.3725490196);
     min-width: 100vw;
+  }
+  #app.before {
+    justify-content: center;
+  }
+  #app.after {
+    padding: 80px 60px 0 60px;
+  }
+  #app #before h2 {
+    font-size: 2rem;
+  }
+  #app #before p {
+    font-size: 1rem;
+  }
+  #app #response {
+    width: 100%;
+  }
+  footer {
+    min-height: 45px;
+  }
+  footer a {
+    font-size: 0.8rem;
+  }
+  footer #font-selection {
+    min-width: 140px;
+    min-height: 30px;
+    padding-left: 1rem;
+    border-radius: 10px;
+    outline: none;
+  }
+  footer #font-selection:hover {
+    cursor: pointer;
+    background: #d8ffff;
   }
 }
 @media screen and (max-width: 412px) {
+  #app.after {
+    padding: 80px 10px 0 10px;
+  }
   header {
     display: flex;
     align-items: center;
   }
   header #header-title {
     display: none;
-  }
-  #app #response {
-    width: 90vw;
   }
   body.active412 header #mode-box {
     display: none;
@@ -336,35 +497,11 @@ body.mono header #header-title h1 {
   body.initial412 header #mode-box {
     display: flex;
   }
-  body.sans {
-    font: 400 1rem "Commissioner", sans-serif;
-  }
-  body.sans input, body.sans #font-selection {
-    font: 400 1rem "Commissioner", sans-serif;
+  body.sans input, body.sans #font-selection, body.serif input, body.serif #font-selection {
     font-size: 0.8rem;
-  }
-  body.sans header #header-title h1 {
-    font: 600 2rem "Commissioner", sans-serif;
-  }
-  body.serif {
-    font: 400 1rem "Roboto Serif", serif;
-  }
-  body.serif input, body.serif #font-selection {
-    font: 400 1rem "Roboto Serif", serif;
-    font-size: 0.8rem;
-  }
-  body.serif header #header-title h1 {
-    font: 600 2rem "Roboto Serif", serif;
-  }
-  body.mono {
-    font: 400 1rem "Roboto Mono", ui-monospace;
   }
   body.mono input, body.mono #font-selection {
-    font: 400 1rem "Roboto Mono", ui-monospace;
     font-size: 0.6rem;
-  }
-  body.mono header #header-title h1 {
-    font: 600 2rem "Roboto Mono", ui-monospace;
   }
   footer a {
     font-size: 0.8rem;
