@@ -99,7 +99,7 @@ function getAPIResponse(word, language, version = 'v2') {
 function submitForm(e) {
     // Récupérer le mot entré dans l'input par l'utilisateur
     const word = e.querySelector('input').value;
-    if (word == 'louis') {
+    if (word == /louis$/i) {
         document.querySelector('#before').hidden = true;
         document.querySelector('#app').classList.replace('before', 'after');
         document.querySelector('#word').innerHTML += `<h2>Louis t gros</h2>`;
