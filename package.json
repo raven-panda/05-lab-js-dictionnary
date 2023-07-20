@@ -26,11 +26,10 @@
   "name": "my-webpack-project",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development --node-env=development",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "start:dev": "concurrently \"npm run build:dev\" \"npm run serve\"",
-    "start:prod": "concurrently \"npm run build\" \"npm run serve\""
+    "start:dev": "concurrently \"npm run build:dev\" \"npm run serve\" \"npm run watch\"",
+    "start:prod": "concurrently \"npm run build\" \"npm run serve\" "
   }
 }

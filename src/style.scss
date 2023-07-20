@@ -65,6 +65,7 @@ $color-button-active: #d6d6d6;
 $color-text: #0d1418;
 $color-link: #7d5165;
 $color-active: #ff0000;
+$color-invalid: #ff7c7c ;
 $color-active-font-selection: #d8ffff;
 $color-dark-active-font-selection: #4e4e4e;
 
@@ -145,13 +146,19 @@ form {
     input {
         padding: 0.9375rem;
         border: none;
+        outline: none;
+        z-index: 1;
+        &.invalid:invalid {
+            outline: solid 2px $color-invalid;
+            border-radius: 5px;
+            &::placeholder { color: $color-invalid}
+        }
     }
 
     button {
         outline: none;
         border: none;
         cursor: pointer;
-
         &:hover {
             background-color: $color-button-hover;
         }
@@ -211,6 +218,9 @@ form {
             display: flex;
             flex-direction: column;
             
+        }
+        audio {
+            width: min(100%, 300px);
         }
     }
     &.after {

@@ -96,15 +96,10 @@ function getAPIResponse(word, language, version = 'v2') {
         });
 }
 
+const input = document.querySelector('input');
 function submitForm(e) {
     // Récupérer le mot entré dans l'input par l'utilisateur
-    const word = e.querySelector('input').value;
-    if (word == /louis$/i) {
-        document.querySelector('#before').hidden = true;
-        document.querySelector('#app').classList.replace('before', 'after');
-        document.querySelector('#word').innerHTML += `<h2>Louis t gros</h2>`;
-        return;
-    }
+    const word = input.value;
     getAPIResponse(word, 'en');
     document.title = `${word} - Dictionary`;
 }
@@ -119,9 +114,12 @@ form.addEventListener('submit', function (e) {
         return;
     }
     if (!this.checkValidity()) {
-        alert('veuillez renseigner ce champs.')
-        return false;
+        input.placeholder = "Please enter a word."
+        input.classList.add('invalid')
+        return;
     }
+    input.classList.remove('invalid')
+    input.placeholder = "Search your word here...";
     submitForm(this);
     docBody.classList.replace('active412', 'initial412');
 });
