@@ -47,7 +47,8 @@ body, body h1, body input {
 }
 
 header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(202px, 552px) 1fr;
   align-items: center;
   background: #2f4858;
   min-height: 80px;
@@ -168,9 +169,11 @@ footer a:active {
 }
 footer #font-selection {
   min-width: 171px;
-  min-height: 30px;
+  min-height: 35px;
   font-size: 1.4rem;
   padding-left: 1rem;
+  border-radius: 10px;
+  outline: none;
 }
 footer #font-selection:hover {
   cursor: pointer;
@@ -286,10 +289,7 @@ body.mono header #header-title h1 {
     background-color: #4e4e4e;
   }
 }
-@media screen and (max-width: 1000px) {
-  header {
-    padding: 0 15px;
-  }
+@media screen and (max-width: 1080px) {
   header h1 {
     display: none;
   }
@@ -314,6 +314,10 @@ body.mono header #header-title h1 {
   }
 }
 @media screen and (max-width: 412px) {
+  header {
+    display: flex;
+    align-items: center;
+  }
   header #header-title {
     display: none;
   }

@@ -45,7 +45,6 @@ function getAPIResponse(word, language, version = 'v2') {
                     soundHTML += `<audio controls src="${audioData.audio}"></audio>`;
                 }
             }
-            console.log(soundHTML)
             phoneticElement.innerHTML = soundHTML;
 
             // Ajout des définitions
@@ -87,24 +86,8 @@ function getAPIResponse(word, language, version = 'v2') {
             }
             synonymsElement.innerHTML = synonymsHTML;
 
-            // Ajout des antonymes si il y en a
-            let antonymsHTML = `<h2>Antonyms</h2>`;
-            let antonymsList = [];
-            console.log(data)
-            for (let meaning of data[0].meanings) {
-                if (meaning.antonyms && meaning.antonyms.length > 0) {
-                    antonymsList.push(`<p>${meaning.antonyms.join(', ')}</p>`);
-                }
-            }
-            if (antonymsList.length > 0) {
-                antonymsHTML += `<div>${antonymsList.join('')}</div>`;
-            }
-            if (antonymsList.length == 0) {
-                antonymsHTML = '';
-            }
-            antonymsElement.innerHTML = antonymsHTML;
             document.querySelector('#before').hidden = true;
-            document.querySelector('#response').classList.add('after');
+            document.querySelector('#app').classList.replace('before', 'after');
         })
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
@@ -166,3 +149,6 @@ fontSelection.addEventListener('change', function () {
         docBody.classList.add('mono');
     };
 })
+
+
+
