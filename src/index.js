@@ -1,4 +1,5 @@
 import './style.scss';
+import './index.html';
 
 // INTÉGRATION DE L'API
 // Fonction pour récupérer la page cible
@@ -102,8 +103,9 @@ function getAPIResponse(word, language, version = 'v2') {
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-
-            form.querySelector('label').hidden = false; 
+            const input = document.querySelector('input');
+            input.value = '';
+            input.placeholder = "Couldn't find your word. Please try again."
         });
 }
 

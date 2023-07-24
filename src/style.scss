@@ -2,36 +2,42 @@
 @font-face {
     font-family: 'Commissioner';
     font-weight: 400;
+    font-display: swap;
     src: url(assets/fonts/commissioner-latin-400-normal.woff2) format('woff2'); 
     unicode-range: U+0000-007F
 }
 @font-face {
     font-family: 'Commissioner';
     font-weight: 600;
+    font-display: swap;
     src: url(assets/fonts/commissioner-latin-600-normal.woff2) format('woff2');
     unicode-range: U+0000-007F
 }
 @font-face {
     font-family: 'Roboto Serif';
     font-weight: 400;
+    font-display: swap;
     src: url(assets/fonts/roboto-serif-400-normal.woff2) format('woff2'); 
     unicode-range: U+0000-007F
 }
 @font-face {
     font-family: 'Roboto Serif';
     font-weight: 600;
+    font-display: swap;
     src: url(assets/fonts/roboto-serif-600-normal.woff2) format('woff2');
     unicode-range: U+0000-007F
 }
 @font-face {
     font-family: 'Roboto Mono';
     font-weight: 400;
+    font-display: swap;
     src: url(assets/fonts/roboto-mono-400-normal.woff2) format('woff2');
     unicode-range: U+0000-007F
 }
 @font-face {
     font-family: 'Roboto Mono';
     font-weight: 600;
+    font-display: swap;
     src: url(assets/fonts/roboto-mono-600-normal.woff2) format('woff2');
     unicode-range: U+0000-007F
 }
@@ -96,12 +102,11 @@ $color-dark-active-font-selection: #4e4e4e;
 @mixin animate($animation,$duration,$method,$times,$forwards){
     animation: $animation $duration $method $times $forwards;
 }
-@mixin keyframes($name){
+@mixin responseFade($name){
     @keyframes #{$name}{
         @content;
     }
 }
-
 
 // Core
 :root {
@@ -169,6 +174,7 @@ form {
         outline: none;
         border: none;
         cursor: pointer;
+        z-index: 1;
         &:hover {
             background-color: $color-button-hover;
         }
@@ -238,7 +244,7 @@ form {
         
     }
     &.after {
-        @include keyframes(responseFade){
+        @include responseFade(responseFade){
             from {
                 transform: translateY(50px);
                 opacity: 0;
@@ -528,7 +534,7 @@ body.mono {
     $container-height: calc(100vh - $height-footer);
     #container {
         min-height: $container-height;
-        box-sizing:border-box;
+        box-sizing: border-box;
         
     }
     #app {
@@ -583,17 +589,16 @@ body.mono {
             display: none;
         }
     }
-    body.active412 header #mode-box {
-        display: none;
+    body.active412 header{
+        #mode-box {
+            display: none;
+        }
     }
     body.initial412 header form {
         grid: 52px/ 52px;
         input {
             display: none
         }
-    }
-    body.initial412 header #mode-box {
-        display: flex;
     }
     body.sans, body.serif {
         input, #font-selection { font-size:0.8rem; }
