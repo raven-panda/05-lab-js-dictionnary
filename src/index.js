@@ -19,15 +19,23 @@ function getAPIResponse(word, language, version = 'v2') {
         .then(data => {
 
             // Récupérations des éléments
-            const wordElement = document.querySelector('#response #word');
+            const wordElement = document.querySelector('#response #word > div:last-child');
             const phoneticElement = document.querySelector('#response #phonetic');
             const definitionElement = document.querySelector('#response #def');
             const synonymsElement = document.querySelector('#response #synonyms');
-            const antonymsElement = document.querySelector('#response #antonyms');
 
+
+            // Ajout de l'audio si il y en a un
+            const test = '';
+            const audioData = data[0].phonetics.find(item => item.audio !== '');
+            if (data[0].phonetics.find(item => item.audio !== '')) {
+                if (audioData) {
+                    test += `<audio id="audio-element"><source src="${audioData.audio}"></audio>`;
+                }
+            }
             // Ajout titre comportant le mot
-            let wordHTML = `<h2>${data[0].word}</h2>`;
-            wordElement.innerHTML = wordHTML;
+            test += `<h2>${data[0].word}</h2>`;
+            wordElement.innerHTML = test;
 
             // Ajout de la phonétique
             let soundHTML = '';
@@ -38,32 +46,31 @@ function getAPIResponse(word, language, version = 'v2') {
                 if (soundHTML != '')
                     break;
             }
-            // Ajout de l'audio si il y en a un
-            if (data[0].phonetics.find(item => item.audio !== '')) {
-                const audioData = data[0].phonetics.find(item => item.audio !== '');
-                if (audioData) {
-                    soundHTML += `<audio controls src="${audioData.audio}"></audio>`;
-                }
-            }
             phoneticElement.innerHTML = soundHTML;
+
+            const button = document.querySelector('#audio');
+            const audioElement = document.querySelector('#audio-element')
+            button.addEventListener('click', function () {
+                audioElement.play();
+            })
 
             // Ajout des définitions
             let definitionHTML = "";
             for (let meaning of data[0].meanings) {
                 definitionHTML += `<h3 class=\"meaning\">${meaning.partOfSpeech}</h3>`;
-                definitionHTML += "<div>";
+                definitionHTML += "<ul>";
                 let defs = meaning.definitions;
                 let i = 0;
                 for (let def of defs) {
                     if (i <= 2) {
-                    definitionHTML += `<p class=\"definitions\">${def.definition}</p>`;
+                    definitionHTML += `<li class=\"definitions\">${def.definition}</li>`;
                     }
                     if (i > 2) {
                         break;
                     };
                     i += 1;
                 }
-                definitionHTML += "</div>";
+                definitionHTML += "</ul>";
             }
             if (definitionHTML.length == 0) {
                 antonymsHTML = '';
@@ -92,7 +99,7 @@ function getAPIResponse(word, language, version = 'v2') {
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-            alert('Cannot find your word, please try again.'); // changer ?
+            form.querySelector('label').hidden = false; // changer ?
         });
 }
 
@@ -115,10 +122,10 @@ form.addEventListener('submit', function (e) {
     }
     if (!this.checkValidity()) {
         input.placeholder = "Please enter a word."
-        input.classList.add('invalid')
+        form.classList.add('invalid')
         return;
     }
-    input.classList.remove('invalid')
+    form.classList.remove('invalid')
     input.placeholder = "Search your word here...";
     submitForm(this);
     docBody.classList.replace('active412', 'initial412');
@@ -152,6 +159,3 @@ fontSelection.addEventListener('change', function () {
         docBody.classList.add('mono');
     };
 })
-
-
-

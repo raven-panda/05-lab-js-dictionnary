@@ -3,7 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+
 const TerserPlugin = require("terser-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == 'production';
@@ -15,8 +15,7 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
     entry: {
-        index: './src/index.js',
-        // definition: './src/definition.js'
+        index: './src/index.js'
     },
     output: {
         filename: '[name]-bundle.js',
@@ -27,7 +26,7 @@ const config = {
         open: true,
         host: 'localhost',
         liveReload: true,
-        port: 3000,
+        port: 2500,
         static: {
             directory: path.join(__dirname, "app"),
         },
@@ -42,21 +41,12 @@ const config = {
                 description: "Project",
             },
             template: './src/index.html',
-            filename: '../app/index.html',
+            filename: '../app/index.html'
         }),
         new MiniCssExtractPlugin({
             filename: 'style.css',
-        }),
-        // new HtmlWebpackPlugin({
-        //     chunks: ['definition'],
-        //     inject: true,
-        //     meta: {
-        //         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-        //         description: "Project",
-        //     },
-        //     template: './src/definition.html',
-        //     filename: '../app/definition.html',
-        // }),
+        })
+
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -83,25 +73,14 @@ const config = {
                 }
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
-            {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    stylesHandler,
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        },
+                        loader: stylesHandler
                     },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                        },
-                    }
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'                   
                 ],
             },
             {
@@ -129,21 +108,6 @@ const config = {
                 test: /\.js$/i,
                 exclude: /node_modules/,
             }),
-            new ImageMinimizerPlugin({
-                generator: [
-                    {
-                        preset: "webp",
-                        implementation: ImageMinimizerPlugin.sharpGenerate,
-                        options: {
-                            encodeOptions: {
-                                webp: {
-                                    quality: 80,
-                                },
-                            },
-                        },
-                    },
-                ],
-            }),
         ],
     }
 };
@@ -151,8 +115,6 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        
     } else {
         config.mode = 'development';
     }

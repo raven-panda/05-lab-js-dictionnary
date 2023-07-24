@@ -1,1 +1,79 @@
-(()=>{"use strict";const e=document.querySelector("input");function t(t){const n=e.value;!function(e,t){let n=function(e,t){return`https://api.dictionaryapi.dev/api/${arguments.length>2&&void 0!==arguments[2]?arguments[2]:"v2"}/entries/${t}/${e}`}(e,t,arguments.length>2&&void 0!==arguments[2]?arguments[2]:"v2");fetch(n).then((e=>e.json())).then((e=>{const t=document.querySelector("#response #word"),n=document.querySelector("#response #phonetic"),o=document.querySelector("#response #def"),i=document.querySelector("#response #synonyms");document.querySelector("#response #antonyms");let s=`<h2>${e[0].word}</h2>`;t.innerHTML=s;let c="";for(let t of e[0].phonetics){const e=t.text;if(e&&(c+=`<p>${e}</p>`),""!=c)break}if(e[0].phonetics.find((e=>""!==e.audio))){const t=e[0].phonetics.find((e=>""!==e.audio));t&&(c+=`<audio controls src="${t.audio}"></audio>`)}n.innerHTML=c;let r="";for(let t of e[0].meanings){r+=`<h3 class="meaning">${t.partOfSpeech}</h3>`,r+="<div>";let e=t.definitions,n=0;for(let t of e){if(n<=2&&(r+=`<p class="definitions">${t.definition}</p>`),n>2)break;n+=1}r+="</div>"}0==r.length&&(antonymsHTML=""),o.innerHTML=r;let a="<h2>Synonyms</h2>",l=[];for(let t of e[0].meanings)t.synonyms&&t.synonyms.length>0&&l.push(`<p>${t.synonyms.join(", ")}</p>`);l.length>0&&(a+=`<div>${l.join("")}</div>`),0==l.length&&(a=""),i.innerHTML=a,document.querySelector("#before").hidden=!0,document.querySelector("#app").classList.replace("before","after")})).catch((e=>{alert("Cannot find your word, please try again.")}))}(n,"en"),document.title=`${n} - Dictionary`}const n=document.querySelector("form"),o=document.querySelector("body");n.addEventListener("submit",(function(n){if(n.preventDefault(),window.matchMedia("(max-width: 412px)").matches&&o.classList.contains("initial412"))o.classList.replace("initial412","active412");else{if(!this.checkValidity())return e.placeholder="Please enter a word.",void e.classList.add("invalid");e.classList.remove("invalid"),e.placeholder="Search your word here...",t(),o.classList.replace("active412","initial412")}})),document.querySelector("#mode-switch").onclick=function(){o.classList.toggle("theme-b")};const i=document.querySelector("#font-selection"),s=document.querySelector(".init-opt");i.onclick=()=>{s&&s.remove()},i.addEventListener("change",(function(){s&&s.remove(),"sans"==this.value&&o.classList.remove("serif","mono"),"serif"==this.value&&(o.classList.remove("mono"),o.classList.add("serif")),"mono"==this.value&&(o.classList.remove("serif"),o.classList.add("mono"))}))})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n\n\n// INTÉGRATION DE L'API\n// Fonction pour récupérer la page cible\nfunction constructAPIEndpoint(word, language) {\n  let version = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'v2';\n  return `https://api.dictionaryapi.dev/api/${version}/entries/${language}/${word}`;\n}\n\n// Fonction pour traiter et afficher les données récupéré.\nfunction getAPIResponse(word, language) {\n  let version = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'v2';\n  let api = constructAPIEndpoint(word, language, version);\n  fetch(api)\n\n  // Extrait et parse les données JSON de la réponse HTTP\n  .then(response => {\n    return response.json();\n  })\n  // Traitement des données pour les afficher\n  .then(data => {\n    // Récupérations des éléments\n    const wordElement = document.querySelector('#response #word > div:last-child');\n    const phoneticElement = document.querySelector('#response #phonetic');\n    const definitionElement = document.querySelector('#response #def');\n    const synonymsElement = document.querySelector('#response #synonyms');\n\n    // Ajout de l'audio si il y en a un\n    const test = '';\n    const audioData = data[0].phonetics.find(item => item.audio !== '');\n    if (data[0].phonetics.find(item => item.audio !== '')) {\n      if (audioData) {\n        test += `<audio id=\"audio-element\"><source src=\"${audioData.audio}\"></audio>`;\n      }\n    }\n    // Ajout titre comportant le mot\n    test += `<h2>${data[0].word}</h2>`;\n    wordElement.innerHTML = test;\n\n    // Ajout de la phonétique\n    let soundHTML = '';\n    for (let phoneticsObject of data[0].phonetics) {\n      const phoneticData = phoneticsObject.text;\n      if (phoneticData) soundHTML += `<p>${phoneticData}</p>`;\n      if (soundHTML != '') break;\n    }\n    phoneticElement.innerHTML = soundHTML;\n    const button = document.querySelector('#audio');\n    const audioElement = document.querySelector('#audio-element');\n    button.addEventListener('click', function () {\n      audioElement.play();\n    });\n\n    // Ajout des définitions\n    let definitionHTML = \"\";\n    for (let meaning of data[0].meanings) {\n      definitionHTML += `<h3 class=\\\"meaning\\\">${meaning.partOfSpeech}</h3>`;\n      definitionHTML += \"<ul>\";\n      let defs = meaning.definitions;\n      let i = 0;\n      for (let def of defs) {\n        if (i <= 2) {\n          definitionHTML += `<li class=\\\"definitions\\\">${def.definition}</li>`;\n        }\n        if (i > 2) {\n          break;\n        }\n        ;\n        i += 1;\n      }\n      definitionHTML += \"</ul>\";\n    }\n    if (definitionHTML.length == 0) {\n      antonymsHTML = '';\n    }\n    definitionElement.innerHTML = definitionHTML;\n\n    // Ajout des synonymes si il y en a\n    let synonymsHTML = `<h2>Synonyms</h2>`;\n    let synonymsList = [];\n    for (let meaning of data[0].meanings) {\n      if (meaning.synonyms && meaning.synonyms.length > 0) {\n        synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);\n      }\n    }\n    if (synonymsList.length > 0) {\n      synonymsHTML += `<div>${synonymsList.join('')}</div>`;\n    }\n    if (synonymsList.length == 0) {\n      synonymsHTML = '';\n    }\n    synonymsElement.innerHTML = synonymsHTML;\n    document.querySelector('#before').hidden = true;\n    document.querySelector('#app').classList.replace('before', 'after');\n  })\n\n  // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale\n  .catch(e => {\n    form.querySelector('label').hidden = false; // changer ?\n  });\n}\n\nconst input = document.querySelector('input');\nfunction submitForm(e) {\n  // Récupérer le mot entré dans l'input par l'utilisateur\n  const word = input.value;\n  getAPIResponse(word, 'en');\n  document.title = `${word} - Dictionary`;\n}\n\n// Évennement de l'envoi\nconst form = document.querySelector('form');\nconst docBody = document.querySelector('body');\nform.addEventListener('submit', function (e) {\n  e.preventDefault();\n  if (window.matchMedia(\"(max-width: 412px)\").matches && docBody.classList.contains('initial412')) {\n    docBody.classList.replace('initial412', 'active412');\n    return;\n  }\n  if (!this.checkValidity()) {\n    input.placeholder = \"Please enter a word.\";\n    form.classList.add('invalid');\n    return;\n  }\n  form.classList.remove('invalid');\n  input.placeholder = \"Search your word here...\";\n  submitForm(this);\n  docBody.classList.replace('active412', 'initial412');\n});\n\n// Bouton pour le mode sombre/clair\n\ndocument.querySelector('#mode-switch').onclick = function () {\n  docBody.classList.toggle('theme-b');\n};\n\n// Basculer de police\nconst fontSelection = document.querySelector('#font-selection');\nconst initOpt = document.querySelector('.init-opt');\nfontSelection.onclick = () => {\n  if (initOpt) initOpt.remove();\n};\nfontSelection.addEventListener('change', function () {\n  if (initOpt) {\n    initOpt.remove();\n  }\n  if (this.value == 'sans') {\n    docBody.classList.remove('serif', 'mono');\n  }\n  ;\n  if (this.value == 'serif') {\n    docBody.classList.remove('mono');\n    docBody.classList.add('serif');\n  }\n  ;\n  if (this.value == 'mono') {\n    docBody.classList.remove('serif');\n    docBody.classList.add('mono');\n  }\n  ;\n});\n\n//# sourceURL=webpack://my-webpack-project/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/style.scss":
+/*!************************!*\
+  !*** ./src/style.scss ***!
+  \************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://my-webpack-project/./src/style.scss?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
+/******/ })()
+;
