@@ -19,87 +19,91 @@ function getAPIResponse(word, language, version = 'v2') {
         .then(data => {
 
             // Récupérations des éléments
-            const wordElement = document.querySelector('#response #word > div:last-child');
-            const phoneticElement = document.querySelector('#response #phonetic');
-            const definitionElement = document.querySelector('#response #def');
-            const synonymsElement = document.querySelector('#response #synonyms');
 
 
-            // Ajout de l'audio si il y en a un
-            const test = '';
-            const audioData = data[0].phonetics.find(item => item.audio !== '');
-            if (data[0].phonetics.find(item => item.audio !== '')) {
-                if (audioData) {
-                    test += `<audio id="audio-element"><source src="${audioData.audio}"></audio>`;
-                }
-            }
+
             // Ajout titre comportant le mot
-            test += `<h2>${data[0].word}</h2>`;
-            wordElement.innerHTML = test;
+            const wordElement = document.querySelector('#response #word-title');
+                wordElement.innerHTML = `<h2>${data[0].word}</h2>`;
+
+            // Audio
+            const audioElement = document.querySelector('#response #word-audio');
+            const audioData = data[0].phonetics.find(item => item.audio !== '');
+            const audioSource = document.querySelector('#response #audio-source');
+
+                // Ajoute la source à l'audio si il y a un audio.
+                audioSource.src = '';
+                if (audioData) {
+                    audioElement.classList.remove('unavailable');
+                    audioSource.src = audioData.audio;
+                } else if (!audioData) {
+                    audioElement.classList.add('unavailable');
+                }
+                // Évènnement au clique sur le bouton pour jouer l'audio si il y en a un.
+                audioElement.addEventListener('click', function () {
+                    audioSource.play().catch(e => {return console.log(e) });
+                })
 
             // Ajout de la phonétique
-            let soundHTML = '';
-            for (let phoneticsObject of data[0].phonetics) {
-                const phoneticData = phoneticsObject.text;
-                if (phoneticData)
-                    soundHTML += `<p>${phoneticData}</p>`;
-                if (soundHTML != '')
-                    break;
-            }
-            phoneticElement.innerHTML = soundHTML;
-
-            const button = document.querySelector('#audio');
-            const audioElement = document.querySelector('#audio-element')
-            button.addEventListener('click', function () {
-                audioElement.play();
-            })
-
-            // Ajout des définitions
-            let definitionHTML = "";
-            for (let meaning of data[0].meanings) {
-                definitionHTML += `<h3 class=\"meaning\">${meaning.partOfSpeech}</h3>`;
-                definitionHTML += "<ul>";
-                let defs = meaning.definitions;
-                let i = 0;
-                for (let def of defs) {
-                    if (i <= 2) {
-                    definitionHTML += `<li class=\"definitions\">${def.definition}</li>`;
-                    }
-                    if (i > 2) {
+            const phoneticElement = document.querySelector('#response #phonetic');
+                let phoneticHTML = '';
+                for (let phoneticsObject of data[0].phonetics) {
+                    const phoneticData = phoneticsObject.text;
+                    if (phoneticData)
+                        phoneticHTML += `<p>${phoneticData}</p>`;
+                    if (phoneticHTML != '')
                         break;
-                    };
-                    i += 1;
                 }
-                definitionHTML += "</ul>";
-            }
-            if (definitionHTML.length == 0) {
-                antonymsHTML = '';
-            }
-            definitionElement.innerHTML = definitionHTML;
+                if (phoneticHTML == '') 
+                    phoneticHTML = '<p class="no-phonetics">No phonetics available.</p>';
+                phoneticElement.innerHTML = phoneticHTML;
+            
+            // Ajout des définitions
+            const definitionElement = document.querySelector('#response #def');
+                let definitionHTML = "";
+                for (let meaning of data[0].meanings) {
+                    definitionHTML += `<h3 class=\"meaning\">${meaning.partOfSpeech}</h3>`;
+                    definitionHTML += "<ul>";
+                    let defs = meaning.definitions;
+                    let i = 0;
+                    for (let def of defs) {
+                        if (i <= 2) {
+                        definitionHTML += `<li class=\"definitions\">${def.definition}</li>`;
+                        }
+                        if (i > 2) {
+                            break;
+                        };
+                        i += 1;
+                    }
+                    definitionHTML += "</ul>";
+                }
+                definitionElement.innerHTML = definitionHTML;
 
             // Ajout des synonymes si il y en a
-            let synonymsHTML = `<h2>Synonyms</h2>`;
-            let synonymsList = [];
-            for (let meaning of data[0].meanings) {
-                if (meaning.synonyms && meaning.synonyms.length > 0) {
-                    synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
+            const synonymsElement = document.querySelector('#response #synonyms');
+                let synonymsHTML = `<h2>Synonyms</h2>`;
+                let synonymsList = [];
+                for (let meaning of data[0].meanings) {
+                    if (meaning.synonyms && meaning.synonyms.length > 0) {
+                        synonymsList.push(`<p>${meaning.synonyms.join(', ')}</p>`);
+                    }
                 }
-            }
-            if (synonymsList.length > 0) {
-                synonymsHTML += `<div>${synonymsList.join('')}</div>`;
-            }
-            if (synonymsList.length == 0) {
-                synonymsHTML = '';
-            }
-            synonymsElement.innerHTML = synonymsHTML;
+                if (synonymsList.length > 0) {
+                    synonymsHTML += `<div>${synonymsList.join('')}</div>`;
+                }
+                if (synonymsList.length == 0) {
+                    synonymsHTML = '';
+                }
+                synonymsElement.innerHTML = synonymsHTML;
 
-            document.querySelector('#before').hidden = true;
-            document.querySelector('#app').classList.replace('before', 'after');
+                document.querySelector('#before').hidden = true;
+                document.querySelector('#app').classList.replace('before', 'after');
         })
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-            form.querySelector('label').hidden = false; // changer ?
+
+            form.querySelector('label').hidden = false; 
         });
 }
 
