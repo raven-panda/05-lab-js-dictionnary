@@ -1,6 +1,10 @@
 import './style.scss';
 import './index.html';
 
+const form = document.querySelector('form');
+const label = document.querySelector('label');
+const input = document.querySelector('input');
+
 // INTÉGRATION DE L'API
 // Fonction pour récupérer la page cible
 function constructAPIEndpoint(word, language, version = 'v2') {
@@ -103,13 +107,13 @@ function getAPIResponse(word, language, version = 'v2') {
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-            const input = document.querySelector('input');
+            label.hidden = false;
+            docBody.classList.replace('initial412', 'active412')
+            form.classList.add('invalid');
             input.value = '';
-            input.placeholder = "Couldn't find your word. Please try again."
         });
 }
 
-const input = document.querySelector('input');
 function submitForm(e) {
     // Récupérer le mot entré dans l'input par l'utilisateur
     const word = input.value;
@@ -118,7 +122,6 @@ function submitForm(e) {
 }
 
 // Évennement de l'envoi
-const form = document.querySelector('form')
 const docBody = document.querySelector('body');
 form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -135,6 +138,7 @@ form.addEventListener('submit', function (e) {
     input.placeholder = "Search your word here...";
     submitForm(this);
     docBody.classList.replace('active412', 'initial412');
+    label.hidden = true;
 });
 
 // Bouton pour le mode sombre/clair

@@ -1,82 +1,90 @@
-// Polices
+/*====================== FONTS ======================*/
 @font-face {
     font-family: 'Commissioner';
     font-weight: 400;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/commissioner-latin-400-normal.woff2) format('woff2'); 
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
 @font-face {
     font-family: 'Commissioner';
     font-weight: 600;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/commissioner-latin-600-normal.woff2) format('woff2');
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
 @font-face {
     font-family: 'Roboto Serif';
     font-weight: 400;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/roboto-serif-400-normal.woff2) format('woff2'); 
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
 @font-face {
     font-family: 'Roboto Serif';
     font-weight: 600;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/roboto-serif-600-normal.woff2) format('woff2');
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
 @font-face {
     font-family: 'Roboto Mono';
     font-weight: 400;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/roboto-mono-400-normal.woff2) format('woff2');
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
 @font-face {
     font-family: 'Roboto Mono';
     font-weight: 600;
-    font-display: swap;
+    //font-display: swap;
     src: url(assets/fonts/roboto-mono-600-normal.woff2) format('woff2');
-    unicode-range: U+0000-007F
+    unicode-range: U+0000-007F;
 }
+/*=======================================================*/
 
-// Variables
-$height-header: 80px;
+
+
+/*====================== VARIABLES ======================*/
+// Header
+$height-header: 3.7vw;
 $color-header: #2f4858;
 $color-dark-header: #0d1418 ;
 $color-header-title: #b6f0e6;
 $color-menu: #4c6b7f;
 
-$height-footer: 45px;
+// Form
+$color-input-dark: #262626;
+$color-button-hover: #e4e4e4;
+$color-button-active: #d6d6d6;
+$color-invalid: #ff7c7c ;
+
+// App
+$color-app: #f2f2f2;
+$color-dark-app: #474747;
+$color-app-media: #f2f2f25f;
+$color-dark-app-media: #4747475f;
+$color-audio-dark: #676767;
+$color-active: #ff0000;
+
+// Footer
+$height-footer: 2.2vw;
 $color-footer: #ddebf4;
 $color-font-selection: #eaf7ff;
 $color-dark-font-selection: #232323;
+$color-link: #7d5165;
+$color-active-font-selection: #d8ffff;
+$color-dark-active-font-selection: #4e4e4e;
 
+// Container
 $container-height: calc(100vh - ($height-header + $height-footer));
 $color-container: #fdfdfd9f;
 $bg-light: top / cover no-repeat url(assets/light_bg.webp);
 $bg-dark: top / cover no-repeat url(assets/dark_bg.webp);
 $color-dark-container: #0000009f;
-
-$color-app: #f2f2f2;
-$color-dark-app: #4f4f4f;
-$color-app-media: #f2f2f25f;
-$color-dark-app-media: #4f4f4f5f;
-
-$color-button-hover: #e4e4e4;
-$color-button-active: #d6d6d6;
-
-$color-audio-dark: #676767;
-
 $color-text: #0d1418;
-$color-link: #7d5165;
-$color-active: #ff0000;
-$color-invalid: #ff7c7c ;
-$color-active-font-selection: #d8ffff;
-$color-dark-active-font-selection: #4e4e4e;
 
+// Font mixins
 @mixin sans400 {
     font: 400 1rem 'Commissioner', sans-serif;
 }
@@ -95,6 +103,8 @@ $color-dark-active-font-selection: #4e4e4e;
 @mixin mono600 {
     font: 600 2rem 'Roboto Mono', ui-monospace;
 }
+
+// Other mixins
 @mixin flex {
     display: flex;
     align-items: center;
@@ -107,8 +117,11 @@ $color-dark-active-font-selection: #4e4e4e;
         @content;
     }
 }
+/*==================================================*/
 
-// Core
+
+
+/*====================== BASE ======================*/
 :root {
     font-size: 100%;
 }
@@ -118,29 +131,59 @@ body {
 body, body h1, body input, ul, #before p, #app #response #phonetic > p {
     margin: 0;
 }
+// Font changes
+body.sans {
+    @include sans400;
+    input, #font-selection { @include sans400; font-size:1.2vw; }
+}
+body.serif {
+    @include serif400;
+    input, #font-selection { @include serif400; font-size:1.2vw; }
+}
+body.mono {
+    @include mono400;
+    input, #font-selection { @include mono400; font-size:1vw; }
+}
+/*====================================================*/
+
+
+
+/*====================== HEADER ======================*/
 header {
     display: grid;
-    grid-template-columns: 1fr minmax(202px, auto) 1fr;
+    grid-template-columns: 1fr minmax(11vw, auto) 1fr;
     align-items: center;
     background: $color-header;
     min-height: $height-header;
-    padding: 0 0.9375rem;
+    padding: 0 0.8vw;
     justify-content: space-between;
     box-sizing: border-box;
 
     #header-title {
         @include flex;
-        gap: 10px;
+        gap: 0.5vw;
         color: $color-header-title;
         text-decoration: none;
         padding-right: 15px;
+        img {
+            width: 2.4vw;
+            height: 2.4vw;
+        }
+    }
+    h1 {
+        font-family: 'Commissioner';
+        font-size: 1.7vw;
     }
 
     #mode-box {
         user-select: none;
         display: flex;
-        min-width: 210px;
+        min-width: 12vw;
         justify-content: flex-end;
+    }
+
+    #mode-switch {
+        width: 4vw;
     }
 
     #mode-switch:hover {
@@ -150,29 +193,20 @@ header {
 }
 form {
     display: grid;
-    grid: 52px / 500px 52px;
+    grid: 2.5vw / 25vw 2.5vw;
 
     input {
-        padding: 0.9375rem;
+        padding: 0.8vw;
         border: none;
         outline: none;
         z-index: 1;
     }
 
-    &.invalid:invalid {
-        border-radius: 5px;
-        outline: solid 2px $color-invalid;
-        input {
-            border-radius: 5px 0 0 5px;
-            &::placeholder{
-                color: $color-invalid
-            }
-        }
-    }
-
     button {
+        @include flex;
         outline: none;
         border: none;
+        justify-content: center;
         cursor: pointer;
         z-index: 1;
         &:hover {
@@ -183,8 +217,36 @@ form {
             background-color: $color-button-active;
         }
     }
-}
 
+    svg {
+        width: 1.4vw;
+        height: auto;
+    }
+
+    &.invalid:invalid {
+        border-radius: 0.2vw;
+        outline: solid 0.2vw $color-invalid;
+        input {
+            border-radius: 0.2vw 0 0 0.2vw;
+            &::placeholder{
+                color: $color-invalid
+            }
+        }
+        button {
+            border-radius: 0 0.2vw 0.2vw 0;
+        }
+    }
+}
+#error-text {
+    color: $color-invalid;
+    justify-self: center;
+    font-size: 0.7vw;
+}
+/*==================================================*/
+
+
+
+/*====================== MAIN ======================*/
 #container{
     @include flex;
     justify-content: center;
@@ -195,23 +257,23 @@ form {
 }  
 #app {
     background-color: $color-app;
-    padding: 0 20px;
+    padding: 0 1vw;
     box-sizing: border-box;
     #before {
         text-align: center;
         h2 {
-            font-size: 3rem;
-            margin-top: 1.875rem;
+            font-size: 2.5vw;
+            margin-top: 2vw;
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 1.3vw;
         }
 
         p:last-child {
-            font-size: 0.875rem;
+            font-size: 0.7vw;
             font-style: italic;
-            margin: 1.25rem 0 1.875rem 0;
+            margin: 1vw 0 1.3vw 0;
             a { text-decoration: none }
         }
     }
@@ -221,12 +283,16 @@ form {
 
         h2, h3 {
             text-transform: capitalize;
-            font-size: 1.4rem;
+            font-size: 1.2vw;
         }
     
+        ul {
+            padding-left: 2.3vw;
+        }
+
         li, p {
-            margin: 0 0 15px 0;
-            font-size: 1rem
+            margin: 0 0 0.8vw 0;
+            font-size: 0.8vw;
         }
         p.no-phonetics {
             font-style: italic;
@@ -239,14 +305,14 @@ form {
         #word {
             @include flex;
             flex-direction: row;
-            gap: 10px;
+            gap: 0.4vw;
         }
         
     }
     &.after {
         @include responseFade(responseFade){
             from {
-                transform: translateY(50px);
+                transform: translateY(3vw);
                 opacity: 0;
             }
             to {
@@ -262,11 +328,11 @@ form {
     }
 }
 div#word-audio {
-    height: 30px;
-    width: 30px;
+    height: 1.6vw;
+    width: 1.6vw;
     background: $color-button-active;
     border-radius: 100%;
-    padding: 5px;
+    padding: 0.3vw;
     &:hover {
         filter: sepia(20%);
         cursor: pointer;
@@ -278,26 +344,32 @@ div#word-audio {
         }
     }
 }
+/*====================================================*/
+
+
+
+/*====================== FOOTER ======================*/
 footer {
     @include flex;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 0.8vw;
     background: $color-footer;
     min-height: $height-footer;
 
     a {
         text-decoration: none;
         color: $color-link;
+        font-size: 0.8vw;
         &:active {
             color: $color-active
         }
     }
 
     #font-selection  {
-        min-width: 171px;
-        min-height: 35px;
-        padding-left: 1rem;
-        border-radius: 10px;
+        min-width: 9vw;
+        min-height: 1.7vw;
+        padding-left: 0.8vw;
+        border-radius: 0.5vw;
         border: solid 1px $color-dark-container;
         outline: none;
         &:hover {
@@ -307,24 +379,11 @@ footer {
     }
 
 }
+/*================================================================================*/
 
-// Changements de Polices
-body.sans {
-    @include sans400;
-    input, #font-selection { @include sans400; font-size:1.4rem; }
-    header #header-title h1 { @include sans600; }
-}
-body.serif {
-    @include serif400;
-    input, #font-selection { @include serif400; font-size:1.4rem; }
-    header #header-title h1 { @include serif600; }
-}
-body.mono {
-    @include mono400;
-    input, #font-selection { @include mono400; font-size:1.2rem; }
-    header #header-title h1 { @include mono600; }
-}
 
+
+/*====================== MEDIA QUERIES (COLOR PREFERENCES) ======================*/
 @media (prefers-color-scheme: dark) {
     header #mode-switch {content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23B6F0E6' height='45px' shape-rendering='geometricPrecision' text-rendering='geometricPrecision' image-rendering='optimizeQuality' fill-rule='evenodd' clip-rule='evenodd' viewBox='0 0 512 262.86'%3E%3Cpath fill-rule='nonzero' d='M316.78 16.55h-205.9c-30.5 0-58.22 12.48-78.31 32.57C12.47 69.21 0 96.93 0 127.44c0 30.5 12.47 58.22 32.57 78.31 20.09 20.1 47.81 32.57 78.31 32.57h193.25c21.54 15.43 47.9 24.54 76.26 24.54h.18c36.14 0 69.02-14.79 92.83-38.6 23.8-23.81 38.6-56.67 38.6-92.83 0-36.15-14.78-69.03-38.63-92.8C449.53 14.8 416.67 0 380.57 0h-.18c-23.02 0-44.72 6.02-63.61 16.55zm70.62 97.17.43.09c.82-3.45 2.83-6.19 6.04-8.16 3.2-1.98 6.53-2.57 10.01-1.75l.1-.43c-3.47-.82-6.2-2.83-8.17-6.03-1.98-3.22-2.57-6.55-1.75-10.01l-.43-.1c-.82 3.47-2.83 6.2-6.03 8.18-3.21 1.98-6.55 2.56-10.02 1.74l-.1.43c3.47.82 6.2 2.84 8.18 6.04 1.99 3.19 2.56 6.52 1.74 10zm36.87 16.77.53.12c1.02-4.35 3.55-7.78 7.58-10.26 4.02-2.49 8.2-3.22 12.56-2.19l.13-.53c-4.35-1.03-7.78-3.55-10.26-7.59-2.49-4.03-3.22-8.22-2.2-12.56l-.53-.12c-1.02 4.35-3.55 7.77-7.58 10.26-4.02 2.49-8.21 3.22-12.56 2.19l-.13.53c4.36 1.03 7.78 3.55 10.26 7.58 2.49 4.02 3.22 8.22 2.2 12.57zm-38.79-61.01c-15.69 7.67-26.98 23.26-28.29 41.93-1.96 27.88 19.05 52.06 46.92 54.02 13.23.93 25.64-3.32 35.22-11.02 4.75-3.82 9.66-.45 7.59 4.36-11.33 26.42-38.45 44.04-68.74 41.91-38.29-2.69-67.14-35.91-64.45-74.19C316.3 89.8 347.05 61.67 383.44 62c6.71.06 8.13 4.5 2.04 7.48zm-5.09-53.95h.18c63.75 0 115.91 52.15 115.91 115.9 0 63.75-52.23 115.91-115.91 115.91h-.18c-63.68 0-115.91-52.16-115.91-115.91s52.16-115.9 115.91-115.9z'/%3E%3C/svg%3E");}
     body.theme {
@@ -335,6 +394,26 @@ body.mono {
         background: $bg-dark;
         footer, header {
             background-color: $color-dark-header
+        }
+        form {
+            input {
+                background-color: $color-input-dark;
+                color: $color-app;
+            }
+            button {
+                background-color: $color-dark-app;
+                &:hover {
+                    background-color: $color-dark-app;
+                    filter: brightness(90%);
+                }
+                &:active {
+                    background-color: $color-dark-app;
+                    filter: brightness(80%);
+                }
+            }
+            svg {
+                fill: $color-app;
+            }
         }
         #container {
             background-color: $color-dark-container
@@ -364,6 +443,24 @@ body.mono {
         }
         header {
             background-color: $color-header
+        }
+        form {
+            input {
+                background-color: #ffffff;
+                color: $color-text;
+            }
+            button {
+                background-color: $color-app;
+                &:hover {
+                    background-color: $color-button-hover;
+                }
+                &:active {
+                    background-color: $color-button-active;
+                }
+            }
+            svg {
+                fill: $color-text;
+            }
         }
         #container {
             background-color: $color-container
@@ -403,6 +500,24 @@ body.mono {
         header, footer{
             background-color: $color-dark-header;
         }
+        form {
+            input {
+                background-color: $color-input-dark;
+                color: $color-app;
+            }
+            button {
+                background-color: $color-dark-app;
+                &:hover {
+                    background-color: $color-button-hover;
+                }
+                &:active {
+                    background-color: $color-button-active;
+                }
+            }
+            svg {
+                fill: $color-app;
+            }
+        }
         #container {
             background-color: $color-dark-container;
         }
@@ -423,89 +538,29 @@ body.mono {
         }
     }
 }
+/*=========================================================================*/
 
-// @media screen and (min-width: 2400px) {
-//     $height-header: 100px;
-//     $height-footer: 70px;
-//     $container-height: calc(100vh - ($height-header + $height-footer));
-//     header {
-//         grid-template-columns: 1fr 870px 1fr;
-//         min-height: $height-header;
-//         padding: 0 1.875rem;
-//         #header-title {
-//             gap: 10px;
-//             padding-right: 15px;
-//             img { width: 60px; height: 60px;}
-//         }
-//         #mode-box {
-//             min-width: 210px;
-//         }
-//     }
-//     form {
-//         grid: 70px / 800px 70px;
-//         input {
-//             padding: 1.875rem;
-//         }
-//         button svg {
-//             width: 40px;
-//             height: 40px;
-//         }
-//     }
-    
-//     #container{
-//         min-height: $container-height;
-//     }  
-//     #app {
-//         padding: 0 2.5rem;
-//         #before {
-//             h2 {
-//                 font-size: 5rem;
-//             }
-//             p {
-//                 font-size: 2.5rem;
-//             }
-//             p:last-child {
-//                 font-size: 1.75rem;
-//                 margin: 2.5rem 0 1.875rem 0;
-//             }
-//         }
-//         #response {
-//             h2, h3 {
-//                 text-transform: capitalize;
-//                 font-size: 2.8rem;
-//             }
-//             p {
-//                 font-size: 2rem
-//             }
-//         }
-//     }
-    
-//     footer {
-//         padding: 0 15px;
-//         min-height: $height-footer;
-    
-//         #font-selection  {
-//             min-width: 264px;
-//             padding-left: 1rem;
-//             border-radius: 10px;
-//         }
-    
-//     }
-    
-//     // Changements de Polices
-//     body.sans, body.serif {
-//         input, #font-selection { font-size:2rem; }
-//         header #header-title h1 { font-size: 3rem; }
-//     }
-//     body.mono {
-//         input, #font-selection { font-size:1.6rem; }
-//         header #header-title h1 { font-size: 2.4rem; }
-//     }
-    
-// }
+
+
+/*====================== MEDIA QUERIES (SCREEN SIZE) ======================*/
+$height-header: 80px;
+$height-footer: 45px;
+$container-height: calc(100vh - ($height-header + $height-footer));
 @media screen and (max-width: 1028px) {
     header {
+        align-content: center;
+        grid: 52px / 1fr minmax(202px, auto) 1fr;
+        min-height: $height-header;
+        padding: 0 0.9375rem;
         h1 { display: none }
+        #header-title {
+            gap: 10px;
+            padding-right: 15px;
+            img {
+                width: 45px;
+                height: 45px;
+            }
+        }
         #mode-box {
             min-width: 75px;
         }
@@ -514,9 +569,103 @@ body.mono {
         }
     }
     form {
-        display: grid;
-        grid-template-columns: minmax(150px, 500px) 52px;
+        grid: 52px / minmax(150px, 500px) 52px;
         font-size: 1rem;
+        input {
+            padding: 0.9375rem;
+        }
+        svg {
+            width: 26px;
+            height: auto;
+        }
+        &.invalid:invalid {
+            border-radius: 5px;
+            outline: solid 2px $color-invalid;
+            input {
+                border-radius: 5px 0 0 5px;
+            }
+            button {
+                border-radius: 0 5px 5px 0;
+            }
+        }
+    }
+    #container {
+        min-height: $container-height;
+    }
+    #app {
+        padding: 0 20px;
+        #before {
+            h2 {
+                font-size: 3rem;
+                margin-top: 1.875rem;
+            }
+    
+            p {
+                font-size: 1.5rem;
+            }
+    
+            p:last-child {
+                font-size: 0.875rem;
+                margin: 1.25rem 0 1.875rem 0;
+            }
+        }
+        #response {
+            width: 50vw;
+    
+            h2, h3 {
+                font-size: 1.4rem;
+            }
+        
+            li, p {
+                margin: 0 0 15px 0;
+                font-size: 1rem
+            }
+            #word {
+                gap: 10px;
+            }
+            
+        }
+        &.after {
+            @include responseFade(responseFade){
+                from {
+                    transform: translateY(50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0px);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    div#word-audio {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        padding: 5px;
+    }
+    footer {
+        padding: 0 15px;
+        min-height: $height-footer;
+        #font-selection  {
+            min-width: 171px;
+            min-height: 35px;
+            padding-left: 1rem;
+            border-radius: 10px;
+            border: solid 1px $color-dark-container;
+        }
+        a {
+            font-size: 1rem;
+        }
+    }
+    body.sans {
+        input, #font-selection { font-size:1.4rem; }
+    }
+    body.serif {
+        input, #font-selection { font-size:1.4rem; }
+    }
+    body.mono {
+        input, #font-selection { font-size:1.2rem; }
     }
 }
 @media screen and (max-width: 768px) {
@@ -615,3 +764,4 @@ body.mono {
         }
     }
 }
+/*=========================================================================*/
