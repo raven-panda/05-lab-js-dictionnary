@@ -142,7 +142,6 @@ form.addEventListener('submit', function (e) {
 });
 
 // Bouton pour le mode sombre/clair
-
 document.querySelector('#mode-switch').onclick = function () {
     docBody.classList.toggle('theme-b');
 }

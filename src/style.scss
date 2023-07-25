@@ -616,6 +616,10 @@ $container-height: calc(100vh - ($height-header + $height-footer));
                 font-size: 1.4rem;
             }
         
+            ul {
+                padding-left: 40px;
+            }
+             
             li, p {
                 margin: 0 0 15px 0;
                 font-size: 1rem
