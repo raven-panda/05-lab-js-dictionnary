@@ -92,16 +92,16 @@ $color-text: #0d1418;
     font: 600 2rem 'Commissioner', sans-serif;
 }
 @mixin serif400 {
-    font: 400 1rem 'Roboto Serif', serif;
+    font: 400 1rem 'Roboto Serif', 'Commissioner', serif;
 }
 @mixin serif600 {
-    font: 600 2rem 'Roboto Serif', serif;
+    font: 600 2rem 'Roboto Serif', 'Commissioner', serif;
 }
 @mixin mono400 {
-    font: 400 1rem 'Roboto Mono', ui-monospace;
+    font: 400 1rem 'Roboto Mono', 'Commissioner', monospace;
 }
 @mixin mono600 {
-    font: 600 2rem 'Roboto Mono', ui-monospace;
+    font: 600 2rem 'Roboto Mono', 'Commissioner', monospace;
 }
 
 // Other mixins
@@ -117,6 +117,9 @@ $color-text: #0d1418;
         @content;
     }
 }
+@mixin transition($property, $property2 : 0) {
+    transition: $property 0.5s, $property2 0.5s;
+}
 /*==================================================*/
 
 
@@ -127,10 +130,12 @@ $color-text: #0d1418;
 }
 body {
     background: $bg-light;
+    @include transition(background);
 }
 body, body h1, body input, ul, #before p, #app #response #phonetic > p {
     margin: 0;
 }
+
 // Font changes
 body.sans {
     @include sans400;
@@ -143,6 +148,17 @@ body.serif {
 body.mono {
     @include mono400;
     input, #font-selection { @include mono400; font-size:1vw; }
+}
+
+// Transition
+body.transition {
+    @include transition(background);
+    header, footer, input, button, #font-selection, #app {
+        @include transition(background, color);
+    }
+    svg {
+        @include transition(fill);
+    }
 }
 /*====================================================*/
 
@@ -499,6 +515,7 @@ footer {
         }
         header, footer{
             background-color: $color-dark-header;
+            
         }
         form {
             input {
