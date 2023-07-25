@@ -107,10 +107,10 @@ function getAPIResponse(word, language, version = 'v2') {
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
         .catch(e => {
-            label.hidden = false;
             docBody.classList.replace('initial412', 'active412')
             form.classList.add('invalid');
             input.value = '';
+            input.placeholder = 'Word not found. Please try again.'
         });
 }
 
@@ -138,7 +138,6 @@ form.addEventListener('submit', function (e) {
     input.placeholder = "Search your word here...";
     submitForm(this);
     docBody.classList.replace('active412', 'initial412');
-    label.hidden = true;
 });
 
 // Bouton pour le mode sombre/clair
