@@ -73,6 +73,7 @@ $color-footer: #ddebf4;
 $color-font-selection: #eaf7ff;
 $color-dark-font-selection: #232323;
 $color-link: #7d5165;
+$color-link-dark: #EB927F;
 $color-active-font-selection: #d8ffff;
 $color-dark-active-font-selection: #4e4e4e;
 
@@ -149,11 +150,12 @@ body.mono {
     @include mono400;
     input, #font-selection { @include mono400; font-size:1vw; }
 }
+a { text-decoration: none }
 
 // Transition
 body.transition {
     @include transition(background);
-    header, footer, input, button, #font-selection, #app, #container {
+    header, footer, input, button, #font-selection, #app, #container, a {
         @include transition(background, color);
     }
     svg {
@@ -180,7 +182,7 @@ header {
         gap: 0.5vw;
         color: $color-header-title;
         text-decoration: none;
-        padding-right: 15px;
+        margin-right: auto;
         img {
             width: 2.4vw;
             height: 2.4vw;
@@ -288,9 +290,12 @@ form {
 
         p:last-child {
             font-size: 0.7vw;
+            font-weight: 600;
             font-style: italic;
             margin: 1vw 0 1.3vw 0;
-            a { text-decoration: none }
+            a {
+                color: $color-link;
+            }
         }
     }
     #response {
@@ -411,6 +416,9 @@ footer {
         footer, header {
             background-color: $color-dark-header
         }
+        #app #before p:last-child a, footer a {
+            color: $color-link-dark;
+        }
         form {
             input {
                 background-color: $color-input-dark;
@@ -459,6 +467,9 @@ footer {
         }
         header {
             background-color: $color-header
+        }
+        #app #before p:last-child a, footer a {
+            color: $color-link;
         }
         form {
             input {
@@ -516,6 +527,9 @@ footer {
         header, footer{
             background-color: $color-dark-header;
             
+        }
+        #app #before p:last-child a, footer a {
+            color: $color-link-dark;
         }
         form {
             input {

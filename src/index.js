@@ -23,11 +23,7 @@ function getAPIResponse(word, language, version = 'v2') {
         // Traitement des données pour les afficher
         .then(data => {
 
-            // Récupérations des éléments
-
-
-
-            // Ajout titre comportant le mot
+            // Ajout titre du mot à chercher
             const wordElement = document.querySelector('#response #word-title');
                 wordElement.innerHTML = `<h2>${data[0].word}</h2>`;
 
@@ -64,7 +60,7 @@ function getAPIResponse(word, language, version = 'v2') {
                 phoneticElement.innerHTML = phoneticHTML;
             
             // Ajout des définitions
-            const definitionElement = document.querySelector('#response #def');
+            const definitionElement = document.querySelector('#response #defs');
                 let definitionHTML = "";
                 for (let meaning of data[0].meanings) {
                     definitionHTML += `<h3 class=\"meaning\">${meaning.partOfSpeech}</h3>`;
