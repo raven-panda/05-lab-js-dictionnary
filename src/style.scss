@@ -117,7 +117,7 @@ $color-text: #0d1418;
         @content;
     }
 }
-@mixin transition($property, $property2 : 0) {
+@mixin transition($property, $property2 : color) {
     transition: $property 0.5s, $property2 0.5s;
 }
 /*==================================================*/
@@ -153,7 +153,7 @@ body.mono {
 // Transition
 body.transition {
     @include transition(background);
-    header, footer, input, button, #font-selection, #app {
+    header, footer, input, button, #font-selection, #app, #container {
         @include transition(background, color);
     }
     svg {

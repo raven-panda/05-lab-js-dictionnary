@@ -143,7 +143,7 @@ form.addEventListener('submit', function (e) {
 // Bouton pour le mode sombre/clair
 document.querySelector('#mode-switch').onclick = function () {
     docBody.classList.toggle('theme-b');
-    docBody.classList.add('transition')
+    docBody.classList.add('transition');
 }
 
 // Basculer de police
