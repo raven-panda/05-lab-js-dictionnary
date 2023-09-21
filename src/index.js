@@ -102,7 +102,7 @@ function getAPIResponse(word, language, version = 'v2') {
         })
 
         // Si aucune definition n'est trouvée : affiche un message d'erreur et fait revenir la page principale
-        .catch(e => {
+        .catch(() => {
             docBody.classList.replace('initial412', 'active412')
             form.classList.add('invalid');
             input.value = '';

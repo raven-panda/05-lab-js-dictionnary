@@ -32,7 +32,6 @@
     "build:dev": "webpack --mode=development",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "start:dev": "concurrently \"npm run build:dev\" \"npm run serve\" \"npm run watch\"",
-    "start:prod": "concurrently \"npm run build\" \"npm run serve\" "
+    "start": "concurrently \"npm run build:dev\" \"npm run serve\" \"npm run watch\""
   }
 }
